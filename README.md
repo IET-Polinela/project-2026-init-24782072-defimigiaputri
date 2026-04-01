@@ -1,1 +1,2 @@
-# project-2026-init-24782072-defimigiaputri
+NAMA : DEFI MIGIA PUTRI
+NPM : 24782072

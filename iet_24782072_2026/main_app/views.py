@@ -23,7 +23,7 @@ def add_report(request):
 
 # READ
 def report_list(request):
-    reports = Report.objects.all()
+    reports = Report.objects.all().order_by('-created_at')
     return render(request, 'main_app/report_list.html', {'reports': reports})
 
 

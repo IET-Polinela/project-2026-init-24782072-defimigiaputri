@@ -13,8 +13,10 @@
         <p><b>Location:</b> {{ report.location }}</p>
         <p><b>Status:</b> {{ report.status|title }}</p>
 
-        <a href="{% url 'update_report' report.id %}">Edit</a> |
-        <a href="{% url 'delete_report' report.id %}">Hapus</a>
+        <p><b>Created at:</b> {{ report.created_at|date:"d M Y H:i" }}</p>
+
+        <a href="{% url 'update_report' report.id %}">Update</a> |
+        <a href="{% url 'delete_report' report.id %}">Delete</a>
     </div>
 
 {% empty %}

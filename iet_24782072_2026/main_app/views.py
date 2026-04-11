@@ -6,9 +6,19 @@ from .models import Report
 from .forms import ReportForm
 
 
-# HOME (tetap FBV, tidak perlu diubah)
+# HOME
 def home(request):
     return render(request, 'main_app/home.html')
+
+
+# ABOUT
+def about(request):
+    return render(request, 'about/about.html')
+
+
+# CONTACT
+def contacts(request):
+    return render(request, 'contacts/contacts.html')
 
 
 # DETAIL
@@ -30,6 +40,7 @@ class ReportListView(ListView):
     model = Report
     template_name = 'main_app/report_list.html'
     context_object_name = 'reports'
+    ordering = ['-created_at']
 
 
 # UPDATE
@@ -47,7 +58,7 @@ class ReportDeleteView(DeleteView):
     success_url = reverse_lazy('report_list')
 
 
-# WORKFLOW STATUS (WAJIB)
+# WORKFLOW STATUS
 class ReportUpdateStatusView(View):
     def post(self, request, pk):
         report = get_object_or_404(Report, pk=pk)

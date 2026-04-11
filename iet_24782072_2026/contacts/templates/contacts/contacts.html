@@ -1,2 +1,98 @@
-<h1>Halaman Contacts</h1>
-<p>Hubungi kami di email defimigia@gmail.com</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact</title>
+    <style>
+        body {
+            font-family: "Times New Roman", serif;
+            margin: 0;
+            background: linear-gradient(to right, #ffe5d9, #ffd6cc);
+        }
+
+        .header {
+            background-color: #d88c9a;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-family: Georgia, serif;
+            font-size: 22px;
+        }
+
+        .navbar {
+            background-color: #f4b6b2;
+            text-align: center;
+            padding: 10px;
+            font-size: 17px;
+        }
+
+        .navbar a {
+            margin: 0 25px;
+            text-decoration: none;
+            color: #6d4c41;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 60%;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #c06c84;
+            font-family: Georgia, serif;
+            text-align: center;
+        }
+
+        p {
+            color: #444;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #f4b6b2;
+            margin-top: 50px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        Smart City Issue Reporting Lampung
+    </div>
+
+    <div class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'contacts' %}">Contact</a>
+    </div>
+
+    <div class="container">
+        <h1>Contact Person</h1>
+        <hr>
+
+        <p><b>Nama:</b> Defi Migia Putri</p>
+        <p><b>Email:</b> defimigia@gmail.com</p>
+        <p><b>Telp:</b> 085609350173</p>
+        <p><b>Institusi:</b> Politeknik Negeri Lampung</p>
+        <hr>
+        </p>
+
+    </div>
+
+    <div class="footer">
+        © 2026 Pemrograman Internet 1 (1416)<br>
+        @_mgiaa.dv
+    </div>
+
+</body>
+</html>

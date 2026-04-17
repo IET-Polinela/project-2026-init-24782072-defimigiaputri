@@ -6,7 +6,7 @@
     <h2 class="title-badge">Daftar Laporan</h2>
 </div>
 
-<div class="text-center mb-3">
+<div class="text-center mt-3 mb-3">
     <a href="{% url 'add_report' %}" class="btn-custom">Tambah Laporan</a>
 </div>
 
@@ -15,7 +15,7 @@
 {% if reports %}
 
 <table class="table table-bordered table-hover text-center align-middle">
-    <thead>
+    <thead class="table-light">
         <tr>
             <th>Judul</th>
             <th>Lokasi</th>
@@ -44,21 +44,21 @@
 
             <td>
                 {% if report.status == 'REPORTED' %}
-                <form method="POST" action="{% url 'update_status' report.id %}">
+                <form method="POST" action="{% url 'update_status' report.id %}" class="mb-1">
                     {% csrf_token %}
                     <input type="hidden" name="status" value="VERIFIED">
                     <button class="btn btn-primary btn-sm">Verifikasi</button>
                 </form>
 
                 {% elif report.status == 'VERIFIED' %}
-                <form method="POST" action="{% url 'update_status' report.id %}">
+                <form method="POST" action="{% url 'update_status' report.id %}" class="mb-1">
                     {% csrf_token %}
                     <input type="hidden" name="status" value="IN_PROGRESS">
                     <button class="btn btn-warning btn-sm">Proses</button>
                 </form>
 
                 {% elif report.status == 'IN_PROGRESS' %}
-                <form method="POST" action="{% url 'update_status' report.id %}">
+                <form method="POST" action="{% url 'update_status' report.id %}" class="mb-1">
                     {% csrf_token %}
                     <input type="hidden" name="status" value="RESOLVED">
                     <button class="btn btn-success btn-sm">Selesai</button>

@@ -4,6 +4,7 @@ from django.views import View
 from django.urls import reverse_lazy
 from .models import Report
 from .forms import ReportForm
+from django.contrib import messages
 
 
 # HOME
@@ -34,6 +35,11 @@ class ReportCreateView(CreateView):
     template_name = 'main_app/add_report.html'
     success_url = reverse_lazy('report_list')
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, "Data berhasil ditambahkan!")
+        return response
+
 
 # READ (LIST)
 class ReportListView(ListView):
@@ -50,12 +56,23 @@ class ReportUpdateView(UpdateView):
     template_name = 'main_app/update_report.html'
     success_url = reverse_lazy('report_list')
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, "Data berhasil diperbarui!")
+        return response
+
 
 # DELETE
 class ReportDeleteView(DeleteView):
     model = Report
     template_name = 'main_app/delete_report.html'
     success_url = reverse_lazy('report_list')
+
+    def post(self, request, *args, **kwargs):
+        obj = self.get_object()
+        obj.delete()
+        messages.success(request, "Data berhasil dihapus!")
+        return redirect('report_list')
 
 
 # WORKFLOW STATUS
@@ -74,4 +91,5 @@ class ReportUpdateStatusView(View):
             report.status = 'RESOLVED'
 
         report.save()
+        messages.success(request, "Status berhasil diubah!")
         return redirect('report_list')

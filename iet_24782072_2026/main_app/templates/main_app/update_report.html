@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% block breadcrumb %}
+<nav>
+    Home > Reports > Update Report
+</nav>
+{% endblock %}
+
 {% block content %}
 
 <div class="container-box">
@@ -35,7 +41,7 @@ document.getElementById("updateForm").addEventListener("submit", function (e) {
 
     setTimeout(() => {
         this.submit();
-    }, 5000);
+    }, 1500);
 });
 </script>
 

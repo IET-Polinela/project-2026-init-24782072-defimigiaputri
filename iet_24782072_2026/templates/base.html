@@ -250,6 +250,10 @@
     <a href="{% url 'report_list' %}" class="{% if '/reports' in request.path %}active{% endif %}">Reports</a>
 </div>
 
+<div class="container mt-2">
+    {% block breadcrumb %}{% endblock %}
+</div>
+
 <div class="container mt-3">
 {% if messages %}
     {% for message in messages %}
@@ -262,8 +266,7 @@
 </div>
 
 <div class="container mt-4">
-    {% block content %}
-    {% endblock %}
+    {% block content %}{% endblock %}
 </div>
 
 <div class="footer">

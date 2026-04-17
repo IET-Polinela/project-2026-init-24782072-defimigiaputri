@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 
+{% block breadcrumb %}
+<nav>
+    Home > Reports > Delete Report
+</nav>
+{% endblock %}
+
 {% block content %}
-
 <div class="container-box text-center">
-
     <h2 class="title-badge">Konfirmasi Hapus</h2>
 
     <p class="mt-3">Yakin ingin menghapus:</p>
@@ -16,7 +20,5 @@
 
     <br>
     <a href="{% url 'report_list' %}" class="btn-custom">Kembali</a>
-
 </div>
-
 {% endblock %}

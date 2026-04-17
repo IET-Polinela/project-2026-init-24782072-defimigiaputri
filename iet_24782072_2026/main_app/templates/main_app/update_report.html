@@ -8,19 +8,35 @@
         <h2 class="title-badge">Edit Laporan</h2>
     </div>
 
-    <form method="POST">
+    <form method="POST" id="updateForm">
         {% csrf_token %}
         {{ form.as_p }}
 
         <div class="text-center mt-3">
-            <button class="btn btn-warning">Update</button>
+            <button type="submit" class="btn btn-warning" id="updateBtn">
+                Update
+            </button>
         </div>
     </form>
 
     <div class="text-center mt-3">
-        <a href="{% url 'report_list' %}" class="btn btn-success">Kembali</a>
+        <a href="{% url 'report_list' %}" class="btn-custom">Kembali</a>
     </div>
 
 </div>
+
+<script>
+document.getElementById("updateForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const btn = document.getElementById("updateBtn");
+    btn.innerText = "Loading...";
+    btn.disabled = true;
+
+    setTimeout(() => {
+        this.submit();
+    }, 5000);
+});
+</script>
 
 {% endblock %}

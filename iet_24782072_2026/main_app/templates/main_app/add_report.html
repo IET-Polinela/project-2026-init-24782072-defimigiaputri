@@ -13,7 +13,10 @@
         {{ form.as_p }}
 
         <div class="text-center mt-3">
-            <button class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary"
+            onclick="this.innerText='Loading...'; setTimeout(() => this.disabled=true, 100);">
+            Simpan
+        </button>
         </div>
     </form>
 
@@ -22,5 +25,19 @@
     </div>
 
 </div>
+
+<script>
+document.querySelector("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const btn = this.querySelector("button[type='submit']");
+    btn.innerText = "Loading...";
+    btn.disabled = true;
+
+    setTimeout(() => {
+        this.submit();
+    }, 5000);
+});
+</script>
 
 {% endblock %}

@@ -18,7 +18,7 @@
 
 <div class="container-box">
 
-{% if reports %}
+{% if reports|length > 0 %}
 
 <table class="table table-bordered table-hover text-center align-middle">
     <thead class="table-light">
@@ -85,8 +85,7 @@
 {% else %}
 
 <div class="text-center">
-    <p>Belum ada laporan</p>
-    <a href="{% url 'add_report' %}" class="btn-custom">Tambah Laporan</a>
+    <p><b>Belum ada laporan</b></p>
 </div>
 
 {% endif %}

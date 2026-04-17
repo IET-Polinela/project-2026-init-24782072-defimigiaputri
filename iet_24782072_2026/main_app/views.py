@@ -48,6 +48,9 @@ class ReportListView(ListView):
     context_object_name = 'reports'
     ordering = ['-created_at']
 
+    def get_queryset(self):
+        return Report.objects.all().order_by('-created_at')
+
 
 # UPDATE
 class ReportUpdateView(UpdateView):

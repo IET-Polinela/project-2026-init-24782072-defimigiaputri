@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Smart City{% endblock %}</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -36,97 +35,121 @@
             text-decoration: none;
             color: #6d4c41;
             font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .navbar-custom a.active {
+            border-bottom: 2px solid #6d4c41;
         }
 
         .navbar-custom a:hover {
-            text-decoration: underline;
+            opacity: 0.7;
         }
 
         .container-box {
             width: 60%;
             margin: 50px auto;
             background: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-            text-align: center;
         }
 
-        h1 {
+        .home-title {
+            font-size: 36px;
+            font-family: Georgia, serif;
             color: #c06c84;
-            font-family: Georgia, serif;
-        }
-
-        .btn-custom {
-            display: inline-block;
-            margin-top: 20px;
-            background-color: #f8b4a9;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 6px;
-            text-decoration: none;
-        }
-
-        .btn-custom:hover {
-            background-color: #f4978e;
-        }
-
-        .footer {
             text-align: center;
-            padding: 15px;
-            background-color: #f4b6b2;
-            margin-top: 50px;
+            font-weight: bold;
         }
 
-        .page-title {
-            background-color: #d88c9a;
-            color: white;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 22px;
-            font-family: Georgia, serif;
-            text-align: center;
-            margin-bottom: 20px;
+        .navbar-custom a.active {
+            border-bottom: 3px solid #6d4c41;
+            padding-bottom: 3px;
         }
 
         .title-badge {
-             display: inline-block;
+            display: inline-block;
             background-color: #f18d9f;
             color: white;
             padding: 10px 25px;
             border-radius: 12px;
             font-family: Georgia, serif;
             font-size: 24px;
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+            transition: 0.3s;
         }
 
-        .btn-primary {
+        .btn-custom {
             background-color: #f8b4a9;
-            border-color: #f8b4a9;
             color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #f4978e;
+        }
+
+        .btn {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-primary,
+        .btn-primary:focus,
+        .btn-primary:active {
+            background-color: #f8b4a9 !important;
+            border-color: #f8b4a9 !important;
+            color: white !important;
+            box-shadow: none !important;
         }
 
         .btn-primary:hover {
-            background-color: #f4978e;
-            border-color: #f4978e;
+            background-color: #f4978e !important;
         }
 
-        .btn-success {
-            background-color: #f4b6b2;
-            border-color: #f4b6b2;
-            color: white;
+        .btn-warning,
+        .btn-warning:focus,
+        .btn-warning:active {
+            background-color: #ffd6cc !important;
+            border-color: #ffd6cc !important;
+            color: #6d4c41 !important;
+            box-shadow: none !important;
         }
 
-        .btn-warning {
-            background-color: #ffd6cc;
-            border-color: #ffd6cc;
-            color: #6d4c41;
+        .btn-warning:hover {
+            background-color: #f8b4a9 !important;
         }
 
-        .btn-danger {
-            background-color: #d88c9a;
-            border-color: #d88c9a;
-            color: white;
+        .btn-success,
+        .btn-success:focus,
+        .btn-success:active {
+            background-color: #f4b6b2 !important;
+            border-color: #f4b6b2 !important;
+            color: white !important;
+            box-shadow: none !important;
+        }
+
+        .btn-success:hover {
+            background-color: #e5989b !important;
+        }
+
+        .btn-danger,
+        .btn-danger:focus,
+        .btn-danger:active {
+            background-color: #d88c9a !important;
+            border-color: #d88c9a !important;
+            color: white !important;
+            box-shadow: none !important;
+        }
+
+        .btn-danger:hover {
+            background-color: #c06c84 !important;
         }
 
         .badge-reported {
@@ -156,6 +179,31 @@
             padding: 5px 10px;
             border-radius: 8px;
         }
+
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        input, textarea, select {
+            border-radius: 8px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .container-box {
+                width: 90%;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #f4b6b2;
+            margin-top: 50px;
+        }
     </style>
 </head>
 
@@ -172,6 +220,17 @@
     <a href="{% url 'report_list' %}" class="{% if '/reports' in request.path %}active{% endif %}">Reports</a>
 </div>
 
+<div class="container mt-3">
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+</div>
+
 <div class="container mt-4">
     {% block content %}
     {% endblock %}
@@ -181,6 +240,8 @@
     © 2026 Pemrograman Internet 1 (1416)<br>
     @_mgiaa.dv
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

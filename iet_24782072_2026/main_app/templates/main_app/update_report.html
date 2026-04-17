@@ -3,27 +3,24 @@
 {% block content %}
 
 <div class="container-box">
+
     <div style="text-align:center;">
-    <h2 class="title-badge">Update Laporan</h2>
-</div>
+        <h2 class="title-badge">Edit Laporan</h2>
+    </div>
 
     <form method="POST">
         {% csrf_token %}
-        
         {{ form.as_p }}
 
-        <button type="submit" class="btn btn-warning">Update</button>
+        <div class="text-center mt-3">
+            <button class="btn btn-warning">Update</button>
+        </div>
     </form>
 
-    <a href="{% url 'report_list' %}" class="btn-custom">Kembali</a>
-</div>
+    <div class="text-center mt-3">
+        <a href="{% url 'report_list' %}" class="btn-custom">Kembali</a>
+    </div>
 
-<script>
-document.querySelector("form").addEventListener("submit", function(){
-    let btn = document.querySelector("button[type=submit]");
-    btn.innerHTML = "Loading...";
-    btn.disabled = true;
-});
-</script>
+</div>
 
 {% endblock %}

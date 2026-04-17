@@ -3,21 +3,41 @@
 {% block content %}
 
 <div class="container-box">
-    <h1>Selamat Datang di Provinsi Lampung</h1>
-    <hr>
 
-    <p>
-        Selamat datang di Smart City Issue Reporting Lampung!
-        Banyak masalah di lingkungan sekitar yang sering tidak terdokumentasi.
-        Aplikasi ini membantu masyarakat melaporkan masalah dengan cepat dan terstruktur.
-    </p>
-
-    <hr>
-
-    <div class="actions">
-        <a href="{% url 'add_report' %}" class="btn-custom">Tambah Laporan</a>
-        <a href="{% url 'report_list' %}" class="btn-custom">Lihat Data Laporan</a>
+    <div style="text-align:center;">
+        <h2 class="title-badge">Beranda</h2>
     </div>
+
+    <br>
+
+    <div style="text-align:center;">
+        <h1 class="home-title">Selamat Datang di Provinsi Lampung</h1>
+    </div>
+
+    <hr>
+
+    <div style="text-align:justify;">
+        <p>
+            "Selamat datang di Smart City Issue Reporting Lampung!
+            Banyak masalah di lingkungan sekitar, mulai dari layanan publik,
+            sosial, hingga keamanan, yang sering tidak terdokumentasi dan tidak segera ditindaklanjuti.
+            Aplikasi ini hadir untuk memudahkan masyarakat dalam melaporkan berbagai permasalahan,
+            sehingga setiap laporan dapat ditindaklanjuti dengan cepat dan terstruktur."
+        </p>
+    </div>
+
+    <hr>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'add_report' %}" class="btn btn-primary me-2">
+            Tambah Laporan
+        </a>
+
+        <a href="{% url 'report_list' %}" class="btn btn-warning">
+            Lihat Laporan
+        </a>
+    </div>
+
 </div>
 
 {% endblock %}

@@ -14,7 +14,7 @@
 
 {% if reports %}
 
-<table class="table table-bordered text-center align-middle">
+<table class="table table-bordered table-hover text-center align-middle">
     <thead>
         <tr>
             <th>Judul</th>
@@ -31,49 +31,46 @@
             <td>{{ report.location }}</td>
 
             <td>
-                <span class="
-                    {% if report.status == 'REPORTED' %}badge-reported
-                    {% elif report.status == 'VERIFIED' %}badge-verified
-                    {% elif report.status == 'IN_PROGRESS' %}badge-progress
-                    {% elif report.status == 'RESOLVED' %}badge-resolved
-                    {% endif %}
-                ">
-                    {{ report.status|title }}
-                </span>
+                {% if report.status == 'REPORTED' %}
+                    <span class="badge-reported">Reported</span>
+                {% elif report.status == 'VERIFIED' %}
+                    <span class="badge-verified">Verified</span>
+                {% elif report.status == 'IN_PROGRESS' %}
+                    <span class="badge-progress">In Progress</span>
+                {% else %}
+                    <span class="badge-resolved">Resolved</span>
+                {% endif %}
+            </td>
 
-                <br><br>
-
+            <td>
                 {% if report.status == 'REPORTED' %}
                 <form method="POST" action="{% url 'update_status' report.id %}">
                     {% csrf_token %}
                     <input type="hidden" name="status" value="VERIFIED">
-                    <button type="submit" class="btn btn-primary btn-sm">Verifikasi</button>
+                    <button class="btn btn-primary btn-sm">Verifikasi</button>
                 </form>
 
                 {% elif report.status == 'VERIFIED' %}
                 <form method="POST" action="{% url 'update_status' report.id %}">
                     {% csrf_token %}
                     <input type="hidden" name="status" value="IN_PROGRESS">
-                    <button type="submit" class="btn btn-warning btn-sm">Proses</button>
+                    <button class="btn btn-warning btn-sm">Proses</button>
                 </form>
 
                 {% elif report.status == 'IN_PROGRESS' %}
                 <form method="POST" action="{% url 'update_status' report.id %}">
                     {% csrf_token %}
                     <input type="hidden" name="status" value="RESOLVED">
-                    <button type="submit" class="btn btn-success btn-sm">Selesai</button>
+                    <button class="btn btn-success btn-sm">Selesai</button>
                 </form>
                 {% endif %}
-            </td>
 
-            <td>
-                <div class="d-flex justify-content-center gap-2">
+                <div class="mt-2">
                     <a href="{% url 'report_detail' report.id %}" class="btn btn-primary btn-sm">Detail</a>
                     <a href="{% url 'update_report' report.id %}" class="btn btn-warning btn-sm">Update</a>
                     <a href="{% url 'delete_report' report.id %}" class="btn btn-danger btn-sm">Delete</a>
                 </div>
             </td>
-
         </tr>
     {% endfor %}
     </tbody>

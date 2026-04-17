@@ -1,135 +1,66 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Detail Laporan</title>
-    <style>
-        body {
-            font-family: "Times New Roman", serif;
-            margin: 0;
-            background: linear-gradient(to right, #ffe5d9, #ffd6cc);
-        }
+{% extends 'base.html' %}
 
-        .header {
-            background-color: #d88c9a;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-family: Georgia, serif;
-            font-size: 20px;
-        }
+{% block content %}
 
-        .navbar {
-            background-color: #f4b6b2;
-            text-align: center;
-            padding: 10px;
-            font-size: 17px;
-        }
+<div class="container-box">
 
-        .navbar a {
-            margin: 0 25px;
-            text-decoration: none;
-            color: #6d4c41;
-            font-weight: bold;
-        }
+    <div style="text-align:center;">
+        <h2 class="title-badge">Detail Laporan</h2>
+    </div>
 
-        .container {
-            width: 60%;
-            margin: 50px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            text-align: center;
-            font-family: Georgia, serif;
-            color: #6d4c41;
-        }
-
-        .title {
-            color: #c06c84;
-            font-family: Georgia, serif;
-        }
-
-        .actions a {
-            background-color: #f8b4a9;
-            color: white;
-            padding: 6px 10px;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-left: 5px;
-        }
-
-        .actions a:hover {
-            background-color: #f4978e;
-        }
-
-        .back {
-            display: inline-block;
-            margin-top: 15px;
-            background-color: #f8b4a9;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            text-decoration: none;
-        }
-
-        .back:hover {
-            background-color: #f4978e;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #f4b6b2;
-            margin-top: 50px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="header">
-    Smart City Issue Reporting Lampung
-</div>
-
-<div class="navbar">
-    <a href="{% url 'home' %}">Home</a>
-    <a href="{% url 'about' %}">About</a>
-    <a href="{% url 'contacts' %}">Contact</a>
-</div>
-
-<div class="container">
-
-    <h2>Detail Laporan</h2>
     <hr>
 
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h3 class="title">{{ report.title }}</h3>
+    <div style="text-align:left;">
 
-        <div class="actions">
-            <a href="{% url 'update_report' report.id %}">Update</a>
-            <a href="{% url 'delete_report' report.id %}">Delete</a>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 class="title" style="margin:0;">{{ report.title }}</h3>
+
+        <div>
+            <a href="{% url 'update_report' report.id %}" class="btn btn-warning">Update</a>
+            <a href="{% url 'delete_report' report.id %}" class="btn btn-danger">Delete</a>
         </div>
     </div>
 
-    <p><b>Category:</b> {{ report.category }}</p>
-    <p><b>Description:</b> {{ report.description }}</p>
-    <p><b>Location:</b> {{ report.location }}</p>
-    <p><b>Status:</b> {{ report.status|title }}</p>
-    <p><b>Created at:</b> {{ report.created_at|date:"d M Y H:i" }}</p>
+    <br>
 
-    <a href="{% url 'report_list' %}" class="back">Kembali ke Daftar Laporan</a>
+        <p><b>Category:</b> {{ report.category }}</p>
+        <p><b>Description:</b> {{ report.description }}</p>
+        <p><b>Location:</b> {{ report.location }}</p>
+
+    <p><b>Status:</b>
+        {% if report.status == 'REPORTED' %}
+            <span class="badge-reported">Reported</span>
+        {% elif report.status == 'VERIFIED' %}
+            <span class="badge-verified">Verified</span>
+        {% elif report.status == 'IN_PROGRESS' %}
+            <span class="badge-progress">In Progress</span>
+        {% else %}
+            <span class="badge-resolved">Resolved</span>
+        {% endif %}
+    </p>
+
+        <p><b>Created at:</b> {{ report.created_at|date:"d M Y H:i" }}</p>
+    </div>
+
+    <br>
+
+    <form method="POST" action="{% url 'update_status' report.id %}">
+        {% csrf_token %}
+
+        {% if report.status == 'REPORTED' %}
+            <button name="status" value="VERIFIED" class="btn btn-primary">Verifikasi</button>
+
+        {% elif report.status == 'VERIFIED' %}
+            <button name="status" value="IN_PROGRESS" class="btn btn-warning">Proses</button>
+
+        {% elif report.status == 'IN_PROGRESS' %}
+            <button name="status" value="RESOLVED" class="btn btn-success">Selesaikan</button>
+        {% endif %}
+    </form>
+
+    <br>
+    <a href="{% url 'report_list' %}" class="btn-custom">Kembali</a>
 
 </div>
 
-<div class="footer">
-    © 2026 Pemrograman Internet 1 (1416)<br>
-    @_mgiaa.dv
-</div>
-
-</body>
-</html>
+{% endblock %}

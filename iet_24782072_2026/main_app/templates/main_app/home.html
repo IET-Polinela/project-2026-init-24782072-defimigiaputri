@@ -1,122 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-    <style>
-        body {
-            font-family: "Times New Roman", serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #ffe5d9, #fff1ed);
-        }
+{% extends 'base.html' %}
 
-        .header {
-            background-color: #d88c9a;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-family: Georgia, serif;
-            font-size: 22px;
-        }
+{% block content %}
 
-        .navbar {
-            background-color: #f4b6b2;
-            text-align: center;
-            padding: 10px;
-            font-size: 17px;
-        }
+<div class="container-box">
+    <h1>Selamat Datang di Provinsi Lampung</h1>
+    <hr>
 
-        .navbar a {
-            margin: 0 25px;
-            text-decoration: none;
-            color: #6d4c41;
-            font-weight: bold;
-        }
+    <p>
+        Selamat datang di Smart City Issue Reporting Lampung!
+        Banyak masalah di lingkungan sekitar yang sering tidak terdokumentasi.
+        Aplikasi ini membantu masyarakat melaporkan masalah dengan cepat dan terstruktur.
+    </p>
 
-        .navbar a:hover {
-            text-decoration: underline;
-        }
+    <hr>
 
-        .container {
-            width: 60%;
-            margin: 60px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        h1 {
-            color: #c06c84;
-            font-family: Georgia, serif;
-        }
-
-        p {
-            color: #444;
-            line-height: 1.6;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            background-color: #f8b4a9;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 6px;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background-color: #f4978e;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #f4b6b2;
-            margin-top: 50px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="header">
-        Smart City Issue Reporting Lampung
+    <div class="actions">
+        <a href="{% url 'add_report' %}" class="btn-custom">Tambah Laporan</a>
+        <a href="{% url 'report_list' %}" class="btn-custom">Lihat Data Laporan</a>
     </div>
-
-    <div class="navbar">
-        <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'about' %}">About</a>
-        <a href="{% url 'contacts' %}">Contact</a>
-    </div>
-
-    <div class="container">
-        <h1>Selamat Datang di Provinsi Lampung</h1>
-        <hr>
-
-        <p>
-            "Selamat datang di Smart City Issue Reporting Lampung!
-            Banyak masalah di lingkungan sekitar, mulai dari layanan publik,
-            sosial, hingga keamanan, yang sering tidak terdokumentasi dan tidak segera ditindaklanjuti. 
-            Aplikasi Smart City Issue Reporting Lampung hadir untuk memudahkan masyarakat melaporkan 
-            berbagai permasalahan ini, sehingga setiap laporan dapat ditindaklanjuti dengan cepat dan terstruktur."
-</p>
-<hr>
-        </p>
-<div class="actions">
-    <a href="{% url 'add_report' %}" class="btn">Tambah Laporan</a>
-    <a href="{% url 'report_list' %}" class="btn">Lihat Data Laporan</a>
-</div>
 </div>
 
-    <div class="footer">
-        © 2026 Pemrograman Internet 1 (1416)<br>
-        @_mgiaa.dv
-    </div>
-
-</body>
-</html>
+{% endblock %}

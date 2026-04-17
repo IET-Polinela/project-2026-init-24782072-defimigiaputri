@@ -1,188 +1,93 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Daftar Laporan</title>
-    <style>
-        body {
-            font-family: "Times New Roman", serif;
-            margin: 0;
-            background: linear-gradient(to right, #ffe5d9, #ffd6cc);
-        }
+{% extends 'base.html' %}
 
-        .header {
-            background-color: #d88c9a;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-family: Georgia, serif;
-            font-size: 22px;
-        }
+{% block content %}
 
-        .navbar {
-            background-color: #f4b6b2;
-            text-align: center;
-            padding: 10px;
-            font-size: 17px;
-        }
-
-        .navbar a {
-            margin: 0 25px;
-            text-decoration: none;
-            color: #6d4c41;
-            font-weight: bold;
-        }
-
-        h2 {
-            text-align: center;
-            padding: 20px;
-            font-family: Georgia, serif;
-            color: #6d4c41;
-        }
-
-        .top-btn {
-            display: block;
-            width: fit-content;
-            margin: 0 auto;
-            background-color: #f8b4a9;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 6px;
-            text-decoration: none;
-        }
-
-        .container {
-            width: 60%;
-            margin: 50px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .card {
-            background: white;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-            border-left: 6px solid #f4978e;
-        }
-
-        .card h3 a {
-            text-decoration: none;
-            color: #c06c84;
-            font-family: Georgia, serif;
-        }
-
-        .btn-group a {
-            background-color: #f8b4a9;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-right: 5px;
-        }
-
-        form button {
-            background-color: #f8b4a9;
-            color: white;
-            padding: 6px 10px;
-            border-radius: 5px;
-            border: none;
-        }
-
-        .empty {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #f4b6b2;
-            margin-top: 50px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="header">
-    Smart City Issue Reporting Lampung
+<div style="text-align:center;">
+    <h2 class="title-badge">Daftar Laporan</h2>
 </div>
 
-<div class="navbar">
-    <a href="{% url 'home' %}">Home</a>
-    <a href="{% url 'about' %}">About</a>
-    <a href="{% url 'contacts' %}">Contact</a>
+<div class="text-center mb-3">
+    <a href="{% url 'add_report' %}" class="btn-custom">Tambah Laporan</a>
 </div>
 
-<h2>Daftar Laporan</h2>
+<div class="container-box">
 
-<a href="{% url 'add_report' %}" class="top-btn">Tambah Laporan</a>
+{% if reports %}
 
-<div class="container">
+<table class="table table-bordered text-center align-middle">
+    <thead>
+        <tr>
+            <th>Judul</th>
+            <th>Lokasi</th>
+            <th>Status</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
 
-{% for report in reports %}
-    <div class="card">
+    <tbody>
+    {% for report in reports %}
+        <tr>
+            <td>{{ report.title }}</td>
+            <td>{{ report.location }}</td>
 
-        <h3>
-            <a href="{% url 'report_detail' report.id %}">
-                {{ report.title }}
-            </a>
-        </h3>
+            <td>
+                <span class="
+                    {% if report.status == 'REPORTED' %}badge-reported
+                    {% elif report.status == 'VERIFIED' %}badge-verified
+                    {% elif report.status == 'IN_PROGRESS' %}badge-progress
+                    {% elif report.status == 'RESOLVED' %}badge-resolved
+                    {% endif %}
+                ">
+                    {{ report.status|title }}
+                </span>
 
-        <p><b>Category:</b> {{ report.category }}</p>
-        <p><b>Description:</b> {{ report.description }}</p>
-        <p><b>Location:</b> {{ report.location }}</p>
-        <p><b>Status:</b> {{ report.status|title }}</p>
-        <p><b>Created at:</b> {{ report.created_at|date:"d M Y H:i" }}</p>
+                <br><br>
 
-        {% if report.status == 'REPORTED' %}
-            <form method="POST" action="{% url 'update_status' report.id %}">
-                {% csrf_token %}
-                <input type="hidden" name="status" value="VERIFIED">
-                <button type="submit">Verifikasi</button>
-            </form>
+                {% if report.status == 'REPORTED' %}
+                <form method="POST" action="{% url 'update_status' report.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="VERIFIED">
+                    <button type="submit" class="btn btn-primary btn-sm">Verifikasi</button>
+                </form>
 
-        {% elif report.status == 'VERIFIED' %}
-            <form method="POST" action="{% url 'update_status' report.id %}">
-                {% csrf_token %}
-                <input type="hidden" name="status" value="IN_PROGRESS">
-                <button type="submit">Proses</button>
-            </form>
+                {% elif report.status == 'VERIFIED' %}
+                <form method="POST" action="{% url 'update_status' report.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="IN_PROGRESS">
+                    <button type="submit" class="btn btn-warning btn-sm">Proses</button>
+                </form>
 
-        {% elif report.status == 'IN_PROGRESS' %}
-            <form method="POST" action="{% url 'update_status' report.id %}">
-                {% csrf_token %}
-                <input type="hidden" name="status" value="RESOLVED">
-                <button type="submit">Selesai</button>
-            </form>
-        {% endif %}
+                {% elif report.status == 'IN_PROGRESS' %}
+                <form method="POST" action="{% url 'update_status' report.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="RESOLVED">
+                    <button type="submit" class="btn btn-success btn-sm">Selesai</button>
+                </form>
+                {% endif %}
+            </td>
 
-        <br>
+            <td>
+                <div class="d-flex justify-content-center gap-2">
+                    <a href="{% url 'report_detail' report.id %}" class="btn btn-primary btn-sm">Detail</a>
+                    <a href="{% url 'update_report' report.id %}" class="btn btn-warning btn-sm">Update</a>
+                    <a href="{% url 'delete_report' report.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </div>
+            </td>
 
-        <div class="btn-group">
-            <a href="{% url 'report_detail' report.id %}">Detail</a>
-            <a href="{% url 'update_report' report.id %}">Update</a>
-            <a href="{% url 'delete_report' report.id %}">Delete</a>
-        </div>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 
-    </div>
+{% else %}
 
-{% empty %}
-    <p class="empty">Belum ada laporan</p>
-{% endfor %}
+<div class="text-center">
+    <p>Belum ada laporan</p>
+    <a href="{% url 'add_report' %}" class="btn-custom">Tambah Laporan</a>
+</div>
+
+{% endif %}
 
 </div>
 
-
-<div class="footer">
-    © 2026 Pemrograman Internet 1 (1416)<br>
-    @_mgiaa.dv
-</div>
-
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav>
+    Home > Register
+</nav>
+
+<div class="container-box">
+
+    <div style="text-align:center;">
+        <h2 class="title-badge">Register</h2>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="text-center mt-3">
+            <button class="btn btn-primary">Register</button>
+        </div>
+    </form>
+
+    <div class="text-center mt-3">
+        <a href="{% url 'login' %}" class="btn-back">Kembali ke Login</a>
+    </div>
+
+</div>
+
+{% endblock %}

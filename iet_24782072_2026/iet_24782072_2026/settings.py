@@ -127,3 +127,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = 'usermanagement_24782072.User'
+
+LOGIN_REDIRECT_URL = 'report_list'
+LOGIN_REDIRECT_URL = '/reports/'

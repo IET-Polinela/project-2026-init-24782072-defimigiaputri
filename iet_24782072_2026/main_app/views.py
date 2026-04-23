@@ -39,6 +39,12 @@ class ReportCreateView(CreateView):
         response = super().form_valid(form)
         messages.success(self.request, "Data berhasil ditambahkan!")
         return response
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated or not request.user.is_admin:
+            messages.error(request, "Akses ditolak")
+            return redirect('report_list')
+        return super().dispatch(request, *args, **kwargs)
 
 
 # READ (LIST)
@@ -63,6 +69,12 @@ class ReportUpdateView(UpdateView):
         response = super().form_valid(form)
         messages.success(self.request, "Data berhasil diperbarui!")
         return response
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated or not request.user.is_admin:
+            messages.error(request, "Akses ditolak")
+            return redirect('report_list')
+        return super().dispatch(request, *args, **kwargs)
 
 
 # DELETE
@@ -76,11 +88,21 @@ class ReportDeleteView(DeleteView):
         obj.delete()
         messages.success(request, "Data berhasil dihapus!")
         return redirect('report_list')
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated or not request.user.is_admin:
+            messages.error(request, "Akses ditolak")
+            return redirect('report_list')
+        return super().dispatch(request, *args, **kwargs)
 
 
 # WORKFLOW STATUS
 class ReportUpdateStatusView(View):
     def post(self, request, pk):
+        if not request.user.is_authenticated or not request.user.is_admin:
+            messages.error(request, "Akses ditolak")
+            return redirect('report_list')
+        
         report = get_object_or_404(Report, pk=pk)
         new_status = request.POST.get('status')
 

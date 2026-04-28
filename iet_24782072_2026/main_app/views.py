@@ -42,7 +42,7 @@ class ReportCreateView(CreateView):
     
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_admin:
-            messages.error(request, "Akses ditolak")
+            messages.error(request, "Akses ditolak: Hanya administrator yang dapat menambahkan, memperbarui, atau menghapus laporan!!!")
             return redirect('report_list')
         return super().dispatch(request, *args, **kwargs)
 
@@ -72,7 +72,7 @@ class ReportUpdateView(UpdateView):
     
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_admin:
-            messages.error(request, "Akses ditolak")
+            messages.error(request, "Akses ditolak: Hanya administrator yang dapat menambahkan, memperbarui, atau menghapus laporan!!!")
             return redirect('report_list')
         return super().dispatch(request, *args, **kwargs)
 
@@ -91,7 +91,7 @@ class ReportDeleteView(DeleteView):
     
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_admin:
-            messages.error(request, "Akses ditolak")
+            messages.error(request, "Akses ditolak: Hanya administrator yang dapat menambahkan, memperbarui, atau menghapus laporan!!!")
             return redirect('report_list')
         return super().dispatch(request, *args, **kwargs)
 
@@ -100,7 +100,7 @@ class ReportDeleteView(DeleteView):
 class ReportUpdateStatusView(View):
     def post(self, request, pk):
         if not request.user.is_authenticated or not request.user.is_admin:
-            messages.error(request, "Akses ditolak")
+            messages.error(request, "Akses ditolak: Hanya administrator yang dapat menambahkan, memperbarui, atau menghapus laporan!!!")
             return redirect('report_list')
         
         report = get_object_or_404(Report, pk=pk)

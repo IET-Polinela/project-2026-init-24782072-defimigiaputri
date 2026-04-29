@@ -1,8 +1,108 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container-box text-center">
-    <h2 class="title-badge">Dashboard</h2>
-    <p>Halaman dashboard siap digunakan</p>
+
+<div class="container-box">
+
+    <div style="text-align:center;">
+        <h2 class="title-badge">Dashboard</h2>
+    </div>
+
+    <div class="row mt-4 text-center">
+        <div class="col-md-6">
+            <h5>Distribusi Status</h5>
+            <canvas id="statusChart"></canvas>
+        </div>
+
+        <div class="col-md-6">
+            <h5>Distribusi Kategori</h5>
+            <canvas id="categoryChart"></canvas>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+
+        <!-- REPORTED -->
+        <div class="col-md-6 text-center">
+            <h5 class="section-title reported-title">
+                5 Laporan Terbaru (Reported)
+            </h5>
+
+            <table class="table table-bordered text-center mt-3">
+                <thead class="table-header-reported">
+                    <tr>
+                        <th>Judul</th>
+                        <th>Lokasi</th>
+                    </tr>
+                </thead>
+                <tbody id="reportedTable"></tbody>
+            </table>
+        </div>
+
+        <!-- RESOLVED -->
+        <div class="col-md-6 text-center">
+            <h5 class="section-title resolved-title">
+                5 Laporan Selesai (Resolved)
+            </h5>
+
+            <table class="table table-bordered text-center mt-3">
+                <thead class="table-header-resolved">
+                    <tr>
+                        <th>Judul</th>
+                        <th>Lokasi</th>
+                    </tr>
+                </thead>
+                <tbody id="resolvedTable"></tbody>
+            </table>
+        </div>
+
+    </div>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    fetch("/dashboard/data/")
+    .then(res => res.json())
+    .then(data => {
+
+        new Chart(document.getElementById('statusChart'), {
+            type: 'doughnut',
+            data: {
+                labels: data.status.map(i => i.status),
+                datasets: [{
+                    data: data.status.map(i => i.total)
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('categoryChart'), {
+            type: 'bar',
+            data: {
+                labels: data.category.map(i => i.category),
+                datasets: [{
+                    label: "Jumlah Laporan",
+                    data: data.category.map(i => i.total)
+                }]
+            }
+        });
+
+        let r = document.getElementById('reportedTable');
+        data.latest_reported.forEach(i => {
+            r.innerHTML += `<tr><td>${i.title}</td><td>${i.location}</td></tr>`;
+        });
+
+        let s = document.getElementById('resolvedTable');
+        data.latest_resolved.forEach(i => {
+            s.innerHTML += `<tr><td>${i.title}</td><td>${i.location}</td></tr>`;
+        });
+
+    });
+
+});
+</script>
+
 {% endblock %}

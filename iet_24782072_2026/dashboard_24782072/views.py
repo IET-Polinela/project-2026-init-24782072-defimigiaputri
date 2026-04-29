@@ -27,6 +27,7 @@ def dashboard_stats(request):
 
 
 def dashboard_data(request):
+
     status_data = (
         Report.objects
         .values('status')
@@ -39,7 +40,21 @@ def dashboard_data(request):
         .annotate(total=Count('category'))
     )
 
+    latest_reported = list(
+        Report.objects.filter(status='REPORTED')
+        .order_by('-created_at')[:5]
+        .values('title', 'location', 'created_at')
+    )
+
+    latest_resolved = list(
+        Report.objects.filter(status='RESOLVED')
+        .order_by('-created_at')[:5]
+        .values('title', 'location', 'created_at')
+    )
+
     return JsonResponse({
         'status': list(status_data),
         'category': list(category_data),
+        'latest_reported': latest_reported,
+        'latest_resolved': latest_resolved,
     })

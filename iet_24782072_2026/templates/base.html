@@ -296,6 +296,7 @@
     <a href="{% url 'about' %}" class="{% if request.path == '/about/' %}active{% endif %}">About</a>
     <a href="{% url 'contacts' %}" class="{% if request.path == '/contacts/' %}active{% endif %}">Contact</a>
     <a href="{% url 'report_list' %}" class="{% if '/reports' in request.path %}active{% endif %}">Reports</a>
+    <a href="{% url 'dashboard' %}" class="{% if '/dashboard' in request.path %}active{% endif %}">Dashboard</a>
 
     {% if user.is_authenticated %}
         <span class="user-info">

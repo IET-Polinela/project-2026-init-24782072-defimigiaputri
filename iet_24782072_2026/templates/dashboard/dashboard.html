@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% block breadcrumb %}
+<nav>
+    Home > Dashboard
+</nav>
+{% endblock %}
+
 {% block content %}
 
 <div class="container-box">
@@ -22,7 +28,6 @@
 
     <div class="row mt-5">
 
-        <!-- REPORTED -->
         <div class="col-md-6 text-center">
             <h5 class="section-title reported-title">
                 5 Laporan Terbaru (Reported)
@@ -39,7 +44,6 @@
             </table>
         </div>
 
-        <!-- RESOLVED -->
         <div class="col-md-6 text-center">
             <h5 class="section-title resolved-title">
                 5 Laporan Selesai (Resolved)
@@ -68,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function() {
     fetch("/dashboard/data/")
     .then(res => res.json())
     .then(data => {
+
+        console.log(data);
 
         new Chart(document.getElementById('statusChart'), {
             type: 'doughnut',

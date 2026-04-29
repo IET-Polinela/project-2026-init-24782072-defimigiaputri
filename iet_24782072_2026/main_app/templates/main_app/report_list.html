@@ -12,7 +12,6 @@
     <h2 class="title-badge">Daftar Laporan</h2>
 </div>
 
-<!-- 🔍 LIVE SEARCH -->
 <div class="text-center mt-3 mb-3">
     <input type="text" id="searchInput" class="form-control" placeholder="Cari laporan..." style="max-width:400px; margin:auto;">
 </div>
@@ -37,11 +36,11 @@
         </tr>
     </thead>
 
-    <tbody>
+    <tbody id="reportTable">
     {% for report in reports %}
         <tr class="report-row">
-            <td>{{ report.title }}</td>
-            <td>{{ report.location }}</td>
+            <td class="title-cell">{{ report.title }}</td>
+            <td class="location-cell">{{ report.location }}</td>
 
             <td>
                 {% if report.status == 'REPORTED' %}
@@ -80,9 +79,7 @@
                 {% endif %}
 
                 <div class="mt-2">
-                    <!-- 🔥 DETAIL DIGANTI BUTTON MODAL -->
                     <button class="btn btn-primary btn-sm detail-btn" data-id="{{ report.id }}">Detail</button>
-
                     <a href="{% url 'update_report' report.id %}" class="btn btn-warning btn-sm">Update</a>
                     <a href="{% url 'delete_report' report.id %}" class="btn btn-danger btn-sm">Delete</a>
                 </div>
@@ -94,16 +91,14 @@
 </table>
 
 {% else %}
-
 <div class="text-center">
     <p><b>Belum ada laporan</b></p>
 </div>
-
 {% endif %}
 
 </div>
 
-<!-- 🔥 MODAL -->
+<!-- MODAL -->
 <div class="modal fade" id="detailModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -121,24 +116,42 @@
   </div>
 </div>
 
-<!-- 🔥 SCRIPT -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-    // ===== LIVE SEARCH =====
     const searchInput = document.getElementById("searchInput");
     const rows = document.querySelectorAll(".report-row");
+
+    function highlight(text, keyword) {
+        if (!keyword) return text;
+        const regex = new RegExp(`(${keyword})`, "gi");
+        return text.replace(regex, `<span class="highlight">$1</span>`);
+    }
 
     searchInput.addEventListener("keyup", function() {
         const keyword = this.value.toLowerCase();
 
         rows.forEach(row => {
-            const text = row.innerText.toLowerCase();
-            row.style.display = text.includes(keyword) ? "" : "none";
+            const titleCell = row.querySelector(".title-cell");
+            const locationCell = row.querySelector(".location-cell");
+
+            const originalTitle = titleCell.textContent;
+            const originalLocation = locationCell.textContent;
+
+            const match = (originalTitle + originalLocation).toLowerCase().includes(keyword);
+
+            row.style.display = match ? "" : "none";
+
+            if (match && keyword) {
+                titleCell.innerHTML = highlight(originalTitle, keyword);
+                locationCell.innerHTML = highlight(originalLocation, keyword);
+            } else {
+                titleCell.innerHTML = originalTitle;
+                locationCell.innerHTML = originalLocation;
+            }
         });
     });
 
-    // ===== MODAL DETAIL =====
     const buttons = document.querySelectorAll(".detail-btn");
     const modalContent = document.getElementById("modalContent");
 
@@ -153,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <p><b>Judul:</b> ${data.title}</p>
                     <p><b>Deskripsi:</b> ${data.description}</p>
                     <p><b>Lokasi:</b> ${data.location}</p>
-                    <p><b>Status:</b> ${data.status}</p>
+                    <p><b>Status:</b> <span class="badge-modal">${data.status}</span></p>
                 `;
             });
 

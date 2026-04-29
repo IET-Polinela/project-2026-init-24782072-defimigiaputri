@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from .models import Report
 from .forms import ReportForm
 from django.contrib import messages
+from django.http import JsonResponse   # ⬅️ TAMBAHAN
 
 
 # HOME
@@ -118,3 +119,16 @@ class ReportUpdateStatusView(View):
         report.save()
         messages.success(request, "Status berhasil diubah!")
         return redirect('report_list')
+
+
+def report_detail_api(request, pk):
+    report = get_object_or_404(Report, pk=pk)
+
+    data = {
+        "title": report.title,
+        "description": report.description,
+        "location": report.location,
+        "status": report.status,
+    }
+
+    return JsonResponse(data)

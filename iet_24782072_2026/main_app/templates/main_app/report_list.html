@@ -12,6 +12,10 @@
     <h2 class="title-badge">Daftar Laporan</h2>
 </div>
 
+<!-- 🔍 LIVE SEARCH -->
+<div class="text-center mt-3 mb-3">
+    <input type="text" id="searchInput" class="form-control" placeholder="Cari laporan..." style="max-width:400px; margin:auto;">
+</div>
 
 {% if user.is_authenticated and user.is_admin %}
 <div class="text-center mt-3 mb-3">
@@ -35,7 +39,7 @@
 
     <tbody>
     {% for report in reports %}
-        <tr>
+        <tr class="report-row">
             <td>{{ report.title }}</td>
             <td>{{ report.location }}</td>
 
@@ -76,7 +80,9 @@
                 {% endif %}
 
                 <div class="mt-2">
-                    <a href="{% url 'report_detail' report.id %}" class="btn btn-primary btn-sm">Detail</a>
+                    <!-- 🔥 DETAIL DIGANTI BUTTON MODAL -->
+                    <button class="btn btn-primary btn-sm detail-btn" data-id="{{ report.id }}">Detail</button>
+
                     <a href="{% url 'update_report' report.id %}" class="btn btn-warning btn-sm">Update</a>
                     <a href="{% url 'delete_report' report.id %}" class="btn btn-danger btn-sm">Delete</a>
                 </div>
@@ -96,5 +102,67 @@
 {% endif %}
 
 </div>
+
+<!-- 🔥 MODAL -->
+<div class="modal fade" id="detailModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Detail Laporan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body" id="modalContent">
+        Loading...
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 🔥 SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    // ===== LIVE SEARCH =====
+    const searchInput = document.getElementById("searchInput");
+    const rows = document.querySelectorAll(".report-row");
+
+    searchInput.addEventListener("keyup", function() {
+        const keyword = this.value.toLowerCase();
+
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(keyword) ? "" : "none";
+        });
+    });
+
+    // ===== MODAL DETAIL =====
+    const buttons = document.querySelectorAll(".detail-btn");
+    const modalContent = document.getElementById("modalContent");
+
+    buttons.forEach(btn => {
+        btn.addEventListener("click", function() {
+            const id = this.getAttribute("data-id");
+
+            fetch(`/report/${id}/api/`)
+            .then(res => res.json())
+            .then(data => {
+                modalContent.innerHTML = `
+                    <p><b>Judul:</b> ${data.title}</p>
+                    <p><b>Deskripsi:</b> ${data.description}</p>
+                    <p><b>Lokasi:</b> ${data.location}</p>
+                    <p><b>Status:</b> ${data.status}</p>
+                `;
+            });
+
+            const modal = new bootstrap.Modal(document.getElementById('detailModal'));
+            modal.show();
+        });
+    });
+
+});
+</script>
 
 {% endblock %}

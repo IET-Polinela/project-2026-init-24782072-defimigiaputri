@@ -22,6 +22,11 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from django.urls import (
+    path,
+    include
+)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main_app.urls')),
@@ -46,5 +51,10 @@ urlpatterns = [
         'api/token/refresh/',
         TokenRefreshView.as_view(),
         name='token_refresh'
+    ),
+
+    path(
+        'api/',
+        include('usermanagement_24782072.urls')
     ),
 ]

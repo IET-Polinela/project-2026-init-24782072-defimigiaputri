@@ -35,12 +35,14 @@ class ReportViewSet(
 
         return Report.objects.filter(
 
-            Q(status__in=[
-                'REPORTED',
-                'VERIFIED',
-                'IN_PROGRESS',
-                'RESOLVED'
-            ])
+            Q(
+                status__in=[
+                    'REPORTED',
+                    'VERIFIED',
+                    'IN_PROGRESS',
+                    'RESOLVED'
+                ]
+            )
 
             |
 

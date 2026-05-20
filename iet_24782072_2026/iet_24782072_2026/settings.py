@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'dashboard_24782072',
 
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,21 @@ AUTH_USER_MODEL = 'usermanagement_24782072.User'
 
 LOGIN_REDIRECT_URL = 'report_list'
 LOGIN_REDIRECT_URL = '/reports/'
+
+REST_FRAMEWORK = {
+
+    'DEFAULT_RENDERER_CLASSES': [
+
+        'rest_framework.renderers.JSONRenderer',
+
+        'rest_framework.renderers.BrowsableAPIRenderer',
+
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
+    )
+
+}

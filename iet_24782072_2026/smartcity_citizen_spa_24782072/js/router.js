@@ -83,14 +83,20 @@ const routes = {
 
                 <h4 class="mt-3 dashboard-title">
 
+                    <i class="bi bi-person-heart-fill me-2"></i>
+
                     Selamat Datang!
 
                 </h4>
 
                 <p class="soft-text">
 
-                    Koneksi API laporan akan
-                    diimplementasikan pada Lab 12.
+                    Smart City Issue Reporting Lampung merupakan
+                    portal pelaporan masyarakat yang digunakan
+                    untuk menyampaikan berbagai permasalahan
+                    publik seperti infrastruktur, fasilitas umum,
+                    lingkungan, dan layanan masyarakat agar dapat
+                    ditindaklanjuti secara cepat dan terstruktur.
 
                 </p>
 

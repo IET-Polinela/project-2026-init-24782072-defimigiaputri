@@ -273,6 +273,176 @@
 
     </main>
 
+
+<!-- Modal Tambah / Edit Laporan -->
+<div
+    class="modal fade"
+    id="reportModal"
+    tabindex="-1"
+    aria-labelledby="reportModalLabel"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0 shadow">
+
+            <div
+                class="modal-header text-white"
+                style="background-color:#d88c9a;">
+
+                <h5
+                    class="modal-title fw-bold"
+                    id="reportModalLabel">
+
+                    <i class="bi bi-pencil-square me-2"></i>
+
+                    Buat Laporan Baru
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body p-4">
+
+                <form id="reportForm">
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-bold">
+
+                            Judul Laporan
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="reportTitle"
+                            class="form-control"
+                            placeholder="Masukkan judul laporan">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-bold">
+
+                            Kategori
+
+                        </label>
+
+                        <select
+                            id="reportCategory"
+                            class="form-select">
+
+                            <option value="">
+                                Pilih Kategori
+                            </option>
+
+                            <option value="Infrastruktur Jalan">
+                                Infrastruktur Jalan
+                            </option>
+
+                            <option value="Lampu Mati">
+                                Lampu Mati
+                            </option>
+
+                            <option value="Lingkungan">
+                                Lingkungan
+                            </option>
+
+                            <option value="Keamanan">
+                                Keamanan
+                            </option>
+
+                            <option value="Fasilitas Umum">
+                                Fasilitas Umum
+                            </option>
+
+                            <option value="Drainase">
+                                Drainase
+                            </option>
+
+                            <option value="Jalan Rusak">
+                                Jalan Rusak
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-bold">
+
+                            Lokasi
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="reportLocation"
+                            class="form-control"
+                            placeholder="Masukkan lokasi">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-bold">
+
+                            Deskripsi
+
+                        </label>
+
+                        <textarea
+                            id="reportDescription"
+                            class="form-control"
+                            rows="4"
+                            placeholder="Jelaskan masalah yang ingin dilaporkan"></textarea>
+
+                    </div>
+
+                    <div
+                        class="d-flex justify-content-between mt-4">
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary fw-bold px-4"
+                            id="btnDraft">
+
+                            Simpan Draft
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-pink fw-bold px-4"
+                            id="btnSubmit">
+
+                            Ajukan
+
+                            <i class="bi bi-send-fill ms-1"></i>
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
     <div class="footer">
         © 2026 Pemrograman Internet 1 (1416)
         <br>

@@ -70,6 +70,42 @@ const routes = {
 
             </div>
 
+             <div
+                class="card border-0 p-3 shadow-sm soft-card mt-3">
+
+                <h6 class="fw-bold info-title">
+                    Status Laporan
+                </h6>
+
+                <hr>
+
+                <p class="soft-text">
+                    Draft :
+                    <span id="totalDraft">0</span>
+                </p>
+
+                <p class="soft-text">
+                    Reported :
+                    <span id="totalReported">0</span>
+                </p>
+
+                <p class="soft-text">
+                    Verified :
+                    <span id="totalVerified">0</span>
+                </p>
+
+                <p class="soft-text">
+                    In Progress :
+                    <span id="totalProgress">0</span>
+                </p>
+
+                <p class="soft-text">
+                    Resolved :
+                    <span id="totalResolved">0</span>
+                </p>
+
+            </div>
+
         </aside>
 
         <section class="col-12 col-lg-6">
@@ -154,8 +190,14 @@ function handleRouting() {
     ) {
         setupLoginForm();
     }
-}
 
+    if (
+        hash === '#dashboard' &&
+        typeof loadDashboardData === 'function'
+    ) {
+        loadDashboardData();
+    }
+}
 
 window.addEventListener(
     'hashchange',

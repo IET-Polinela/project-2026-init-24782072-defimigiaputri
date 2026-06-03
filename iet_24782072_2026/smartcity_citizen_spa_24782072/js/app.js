@@ -118,6 +118,8 @@ console.log(response);
 
         renderPagination();
 
+        loadSummaryStats();
+
     } else {
 
         const listContainer =
@@ -170,3 +172,107 @@ function renderPagination() {
     );
 
 }
+
+async function loadSummaryStats() {
+
+    const response =
+        await requestAPI(
+            '/api/reports/?tab=my_reports&page_size=1000',
+            'GET'
+        );
+
+    if (
+        response &&
+        response.status === 200
+    ) {
+
+        const reports =
+            response.data.results || [];
+
+        const totalDraft =
+            reports.filter(
+                report =>
+                    report.status === 'DRAFT'
+            ).length;
+
+        const totalReported =
+            reports.filter(
+                report =>
+                    report.status === 'REPORTED'
+            ).length;
+
+        const totalVerified =
+            reports.filter(
+                report =>
+                    report.status === 'VERIFIED'
+            ).length;
+
+        const totalProgress =
+            reports.filter(
+                report =>
+                    report.status === 'IN_PROGRESS'
+            ).length;
+
+        const totalResolved =
+            reports.filter(
+                report =>
+                    report.status === 'RESOLVED'
+            ).length;
+
+        document.getElementById(
+            'totalDraft'
+        ).textContent =
+            totalDraft;
+
+        document.getElementById(
+            'totalReported'
+        ).textContent =
+            totalReported;
+
+        document.getElementById(
+            'totalVerified'
+        ).textContent =
+            totalVerified;
+
+        document.getElementById(
+            'totalProgress'
+        ).textContent =
+            totalProgress;
+
+        document.getElementById(
+            'totalResolved'
+        ).textContent =
+            totalResolved;
+
+    }
+
+}
+
+console.log(
+    'Summary Stats'
+);
+
+console.log(
+    'Draft:',
+    totalDraft
+);
+
+console.log(
+    'Reported:',
+    totalReported
+);
+
+console.log(
+    'Verified:',
+    totalVerified
+);
+
+console.log(
+    'In Progress:',
+    totalProgress
+);
+
+console.log(
+    'Resolved:',
+    totalResolved
+);

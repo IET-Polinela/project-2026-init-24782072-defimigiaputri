@@ -82,6 +82,8 @@ let currentPage = 1;
 let allReports = [];
 let totalPages = 0;
 
+let editingReportId = null;
+
 async function loadDashboardData(
     tab = currentTab,
     page = currentPage
@@ -157,11 +159,54 @@ console.log(response);
 
 function renderList() {
 
-    console.log(
-        'Render List',
-        allReports
-    );
+    const container =
+        document.getElementById(
+            'listContainer'
+        );
 
+    container.innerHTML = '';
+
+    allReports.forEach(
+        report => {
+
+            container.innerHTML += `
+
+                <div class="card mb-3 p-3">
+
+                    <h5>
+                        ${report.title}
+                    </h5>
+
+                    <p>
+                        ${report.location}
+                    </p>
+
+                    <p>
+                        Status:
+                        ${report.status}
+                    </p>
+
+                    ${
+                        report.status === 'DRAFT'
+                        ?
+                        `
+                        <button
+                            class="btn btn-warning"
+                            onclick="editDraft(${report.id})">
+
+                            Edit Draft
+
+                        </button>
+                        `
+                        :
+                        ''
+                    }
+
+                </div>
+
+            `;
+        }
+    );
 }
 
 function renderPagination() {
@@ -219,6 +264,35 @@ async function loadSummaryStats() {
                     report.status === 'RESOLVED'
             ).length;
 
+        console.log(
+            'Summary Stats'
+        );
+
+        console.log(
+            'Draft:',
+            totalDraft
+        );
+
+        console.log(
+            'Reported:',
+            totalReported
+        );
+
+        console.log(
+            'Verified:',
+            totalVerified
+        );
+
+        console.log(
+            'In Progress:',
+            totalProgress
+        );
+
+        console.log(
+            'Resolved:',
+            totalResolved
+        );
+
         document.getElementById(
             'totalDraft'
         ).textContent =
@@ -248,31 +322,140 @@ async function loadSummaryStats() {
 
 }
 
-console.log(
-    'Summary Stats'
-);
+async function editDraft(id) {
 
-console.log(
-    'Draft:',
-    totalDraft
-);
+    const response =
+        await requestAPI(
+            `/api/reports/${id}/`,
+            'GET'
+        );
 
-console.log(
-    'Reported:',
-    totalReported
-);
+    if (
+        response &&
+        response.status === 200
+    ) {
 
-console.log(
-    'Verified:',
-    totalVerified
-);
+        const report =
+            await response.json();
 
-console.log(
-    'In Progress:',
-    totalProgress
-);
+        document.getElementById(
+            'reportTitle'
+        ).value =
+            report.title;
 
-console.log(
-    'Resolved:',
-    totalResolved
-);
+        document.getElementById(
+            'reportCategory'
+        ).value =
+            report.category;
+
+        document.getElementById(
+            'reportLocation'
+        ).value =
+            report.location;
+
+        document.getElementById(
+            'reportDescription'
+        ).value =
+            report.description;
+
+        editingReportId = id;
+
+        document.getElementById(
+            'reportModalLabel'
+        ).textContent =
+            'Edit Draft';
+
+        const modal =
+            new bootstrap.Modal(
+                document.getElementById(
+                    'reportModal'
+                )
+            );
+
+        modal.show();
+
+    }
+
+}
+
+async function submitReport() {
+
+    const reportData = {
+
+        title:
+            document.getElementById(
+                'reportTitle'
+            ).value,
+
+        category:
+            document.getElementById(
+                'reportCategory'
+            ).value,
+
+        location:
+            document.getElementById(
+                'reportLocation'
+            ).value,
+
+        description:
+            document.getElementById(
+                'reportDescription'
+            ).value
+
+    };
+
+    let response;
+
+    if (
+        editingReportId === null
+    ) {
+
+        response =
+            await requestAPI(
+                '/api/reports/',
+                'POST',
+                reportData
+            );
+
+    } else {
+
+        response =
+            await requestAPI(
+                `/api/reports/${editingReportId}/`,
+                'PUT',
+                reportData
+            );
+
+    }
+
+    if (
+        response &&
+        (
+            response.status === 201 ||
+            response.status === 200
+        )
+    ) {
+
+        const modalElement =
+            document.getElementById(
+                'reportModal'
+            );
+
+        const modal =
+            bootstrap.Modal.getInstance(
+                modalElement
+            );
+
+        modal.hide();
+
+        document.getElementById(
+            'reportForm'
+        ).reset();
+
+        editingReportId = null;
+
+        loadDashboardData();
+
+    }
+
+}

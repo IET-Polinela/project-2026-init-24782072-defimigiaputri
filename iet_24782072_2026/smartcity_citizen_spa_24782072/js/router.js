@@ -60,7 +60,10 @@ const routes = {
                 class="card border-0 p-3 shadow-sm soft-card">
 
                 <button
-                    class="btn btn-pink w-100">
+                    id="btnNewReport"
+                    class="btn btn-pink w-100"
+                    data-bs-toggle="modal"
+                    data-bs-target="#reportModal">
 
                     <i class="bi bi-plus-circle-fill me-2"></i>
 
@@ -164,6 +167,120 @@ const routes = {
 
         </aside>
 
+        <section class="col-12 col-lg-6">
+
+            <div
+                class="card border-0 shadow-sm p-4 soft-card">
+
+                <h5 class="dashboard-title">
+
+                    Daftar Laporan
+
+                </h5>
+
+                <hr>
+
+                <div
+                    id="listContainer">
+
+                </div>
+
+                <div
+                    id="paginationContainer"
+                    class="mt-3">
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <div
+            class="modal fade"
+            id="reportModal"
+            tabindex="-1">
+
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5
+                            class="modal-title"
+                            id="reportModalLabel">
+
+                            Tambah Laporan
+
+                        </h5>
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        <form id="reportForm">
+
+                            <input
+                                type="text"
+                                id="reportTitle"
+                                class="form-control mb-2"
+                                placeholder="Judul">
+
+                            <input
+                                type="text"
+                                id="reportCategory"
+                                class="form-control mb-2"
+                                placeholder="Kategori">
+
+                            <input
+                                type="text"
+                                id="reportLocation"
+                                class="form-control mb-2"
+                                placeholder="Lokasi">
+
+                            <textarea
+                                id="reportDescription"
+                                class="form-control mb-2"
+                                placeholder="Deskripsi"></textarea>
+
+                        </form>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+
+                            Batal
+
+                        </button>
+
+                        <button
+                            type="button"
+                            id="btnSubmit"
+                            class="btn btn-pink">
+
+                            Simpan
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
     `
@@ -195,7 +312,21 @@ function handleRouting() {
         hash === '#dashboard' &&
         typeof loadDashboardData === 'function'
     ) {
+
         loadDashboardData();
+
+        const submitButton =
+            document.getElementById(
+                'btnSubmit'
+            );
+
+        if (submitButton) {
+
+            submitButton.onclick =
+                submitReport;
+
+        }
+
     }
 }
 

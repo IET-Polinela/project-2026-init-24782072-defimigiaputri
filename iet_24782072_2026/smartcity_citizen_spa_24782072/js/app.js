@@ -20,16 +20,21 @@ function updateNavbar() {
 
     if (username) {
 
-        const role =
-            username === 'admin'
-                ? 'Admin'
-                : 'Citizen';
+    const role =
+        (
+            username === 'defii'
+        )
+            ? 'Admin'
+            : 'Citizen';
 
         navbar.innerHTML = `
 
             <li class="nav-item">
 
-                <a class="nav-link" href="#dashboard">
+                <a
+                    id="navDashboard"
+                    class="nav-link"
+                    href="#dashboard">
 
                     <i class="bi bi-house-fill"></i>
 
@@ -41,31 +46,73 @@ function updateNavbar() {
 
             <li class="nav-item">
 
-                <a class="nav-link" href="#">
+                <div class="dropdown">
 
-                    <i class="bi bi-file-earmark-text-fill"></i>
+                    <a
+                        id="navUser"
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        data-bs-toggle="dropdown">
 
-                    Reports
+                        <i class="bi bi-person-circle"></i>
 
-                </a>
+                        ${username}
 
-            </li>
+                        (${role})
 
-            <li class="nav-item">
+                    </a>
 
-                <span class="nav-link">
+                    <ul class="dropdown-menu">
 
-                    <i class="bi bi-person-circle"></i>
+                        <li>
 
-                    ${username}
+                            <button
+                                class="dropdown-item"
+                                onclick="logout()">
 
-                    (${role})
+                                Logout
 
-                </span>
+                            </button>
+
+                        </li>
+
+                    </ul>
+
+                </div>
 
             </li>
 
         `;
+
+    }
+
+}
+
+function setActiveNavbar() {
+
+    const hash = window.location.hash;
+
+    document
+        .getElementById('navDashboard')
+        ?.classList.remove('active');
+
+    document
+        .getElementById('navUser')
+        ?.classList.remove('active');
+
+    if (hash === '#dashboard') {
+
+        document
+            .getElementById('navDashboard')
+            ?.classList.add('active');
+
+    }
+
+    if (hash === '#login') {
+
+        document
+            .getElementById('navUser')
+            ?.classList.add('active');
 
     }
 
@@ -76,7 +123,15 @@ window.addEventListener(
     updateNavbar
 );
 
-let currentTab = 'feed';
+let myReports = [];
+
+let feedReports = [];
+
+let feedPage = 1;
+
+let feedTotalPages = 1;
+
+let currentTab = 'my_reports';
 let currentPage = 1;
 
 let allReports = [];
@@ -90,7 +145,49 @@ async function loadDashboardData(
 ) {
 
     currentTab = tab;
-    currentPage = page;
+
+    const btnMyReports =
+        document.getElementById(
+            'btnMyReports'
+        );
+
+    const btnFeed =
+        document.getElementById(
+            'btnFeed'
+        );
+
+    if (
+        btnMyReports &&
+        btnFeed
+    ) {
+
+        btnMyReports.classList.remove(
+            'active-tab'
+        );
+
+        btnFeed.classList.remove(
+            'active-tab'
+        );
+
+        if (
+            tab === 'my_reports'
+        ) {
+
+            btnMyReports.classList.add(
+                'active-tab'
+            );
+
+        } else {
+
+            btnFeed.classList.add(
+                'active-tab'
+            );
+
+        }
+
+    }
+
+        currentPage = page;
 
     const response =
         await requestAPI(
@@ -105,11 +202,25 @@ console.log(response);
         response.status === 200
     ) {
 
+        const data =
+            await response.json();
+
         allReports =
-            response.data.results || [];
+            (data.results || []).sort(
+                (
+                    a,
+                    b
+                ) =>
+                    new Date(
+                        b.created_at
+                    ) -
+                    new Date(
+                        a.created_at
+                    )
+            );
 
         const totalData =
-            response.data.count || 0;
+            data.count || 0;
 
         totalPages =
             Math.ceil(
@@ -171,27 +282,105 @@ function renderList() {
 
             container.innerHTML += `
 
-                <div class="card mb-3 p-3">
+            <div
+                class="card border-0 shadow-sm p-4 mb-3 soft-card">
 
-                    <h5>
-                        ${report.title}
-                    </h5>
+                <h5 class="dashboard-title">
 
-                    <p>
-                        ${report.location}
-                    </p>
+                    ${report.title}
 
-                    <p>
-                        Status:
+                </h5>
+
+                <p class="soft-text">
+
+                    <strong>Kategori:</strong>
+
+                    ${report.category}
+
+                </p>
+
+                <p class="soft-text">
+
+                    <strong>Lokasi:</strong>
+
+                    ${report.location}
+
+                </p>
+
+                <p class="soft-text">
+
+                    <strong>Deskripsi:</strong>
+
+                    ${report.description}
+
+                </p>
+
+                <p class="soft-text">
+
+                    <strong>Pelapor:</strong>
+
+                    ${report.reporter}
+
+                </p>
+
+                <p class="soft-text">
+
+                    <strong>Dibuat:</strong>
+
+                    ${
+                        new Date(
+                            report.created_at
+                        ).toLocaleString(
+                            'id-ID'
+                        )
+                    }
+
+                </p>
+
+                <p class="soft-text">
+
+                    <strong>Terakhir Update:</strong>
+
+                    ${
+                        new Date(
+                            report.updated_at
+                        ).toLocaleString(
+                            'id-ID'
+                        )
+                    }
+
+                </p>
+
+                <div class="mt-3">
+
+                    <span
+                        class="badge px-3 py-2
+                        ${
+                            report.status === 'DRAFT'
+                                ? 'badge-draft'
+                            : report.status === 'REPORTED'
+                                ? 'badge-reported'
+                            : report.status === 'VERIFIED'
+                                ? 'badge-verified'
+                            : report.status === 'IN_PROGRESS'
+                                ? 'badge-progress'
+                            : 'badge-resolved'
+                        }">
+
                         ${report.status}
-                    </p>
+
+                    </span>
+
+                </div>
+
+                <div class="mt-3">
 
                     ${
                         report.status === 'DRAFT'
                         ?
                         `
                         <button
-                            class="btn btn-warning"
+                            class="btn btn-pink btn-sm"
                             onclick="editDraft(${report.id})">
 
                             Edit Draft
@@ -204,17 +393,73 @@ function renderList() {
 
                 </div>
 
+            </div>
+
             `;
+
         }
     );
 }
 
 function renderPagination() {
 
-    console.log(
-        'Total Pages:',
-        totalPages
-    );
+    const container =
+        document.getElementById(
+            'paginationContainer'
+        );
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = `
+
+        <button
+            class="btn btn-soft me-2"
+            ${
+                currentPage === 1
+                ? 'disabled'
+                : ''
+            }
+            onclick="
+                loadDashboardData(
+                    '${currentTab}',
+                    ${currentPage - 1}
+                )
+            ">
+
+            Previous
+
+        </button>
+
+        <span>
+
+            Halaman
+            ${currentPage}
+            dari
+            ${totalPages}
+
+        </span>
+
+        <button
+            class="btn btn-soft ms-2"
+            ${
+                currentPage === totalPages
+                ? 'disabled'
+                : ''
+            }
+            onclick="
+                loadDashboardData(
+                    '${currentTab}',
+                    ${currentPage + 1}
+                )
+            ">
+
+            Next
+
+        </button>
+
+    `;
 
 }
 
@@ -231,8 +476,11 @@ async function loadSummaryStats() {
         response.status === 200
     ) {
 
+        const data =
+            await response.json();
+
         const reports =
-            response.data.results || [];
+            data.results || [];
 
         const totalDraft =
             reports.filter(
@@ -378,6 +626,45 @@ async function editDraft(id) {
 
 }
 
+async function deleteDraft(id) {
+
+    const confirmDelete =
+        confirm(
+            'Yakin ingin menghapus draft ini?'
+        );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    const response =
+        await requestAPI(
+            `/api/reports/${id}/`,
+            'DELETE'
+        );
+
+    if (
+        response &&
+        (
+            response.status === 204 ||
+            response.status === 200
+        )
+    ) {
+
+        alert(
+            'Draft berhasil dihapus.'
+        );
+
+        loadMyReports();
+
+        loadFeedReports();
+
+        loadSummaryStats();
+
+    }
+
+}
+
 async function submitReport() {
 
     const reportData = {
@@ -454,7 +741,383 @@ async function submitReport() {
 
         editingReportId = null;
 
-        loadDashboardData();
+        loadMyReports();
+
+        loadFeedReports();
+
+        loadSummaryStats();
+
+    }
+
+}
+
+function logout() {
+
+    localStorage.removeItem(
+        'access_token'
+    );
+
+    localStorage.removeItem(
+        'refresh_token'
+    );
+
+    localStorage.removeItem(
+        'username'
+    );
+
+    window.location.hash =
+        '#login';
+
+}
+
+async function loadMyReports() {
+
+    const response =
+        await requestAPI(
+            '/api/reports/?tab=my_reports&page_size=1000',
+            'GET'
+        );
+
+    if (
+        response &&
+        response.status === 200
+    ) {
+
+        const data =
+            await response.json();
+
+        myReports =
+            data.results || [];
+
+        renderMyReports();
+
+    }
+
+}
+
+async function loadFeedReports(page = 1) {
+
+    feedPage = page;
+
+    const response =
+        await requestAPI(
+            `/api/reports/?tab=feed&page=${page}`,
+            'GET'
+        );
+
+    if (
+        response &&
+        response.status === 200
+    ) {
+
+        const data =
+            await response.json();
+
+        feedReports =
+            (data.results || []).sort(
+                (a, b) =>
+                    new Date(b.updated_at) -
+                    new Date(a.updated_at)
+            );  
+
+        feedTotalPages =
+            Math.ceil(
+                data.count / 10
+            );
+
+        renderFeedReports();
+
+        renderFeedPagination();
+
+    }
+
+}
+
+function renderFeedPagination() {
+
+    const container =
+        document.getElementById(
+            'feedPaginationContainer'
+        );
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = `
+
+        <button
+            class="btn btn-soft me-2"
+            ${
+                feedPage === 1
+                    ? 'disabled'
+                    : ''
+            }
+            onclick="loadFeedReports(${feedPage - 1})">
+
+            Previous
+
+        </button>
+
+        <span>
+
+            Halaman
+            ${feedPage}
+            dari
+            ${feedTotalPages}
+
+        </span>
+
+        <button
+            class="btn btn-soft ms-2"
+            ${
+                feedPage === feedTotalPages
+                    ? 'disabled'
+                    : ''
+            }
+            onclick="loadFeedReports(${feedPage + 1})">
+
+            Next
+
+        </button>
+
+    `;
+}
+
+function renderMyReports() {
+
+    const container =
+        document.getElementById(
+            'myReportsContainer'
+        );
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = '';
+
+    myReports.forEach(
+        report => {
+
+            container.innerHTML += createCard(
+                report,
+                true
+            );
+
+        }
+    );
+
+}
+
+function renderFeedReports() {
+
+    const container =
+        document.getElementById(
+            'feedContainer'
+        );
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = '';
+
+    feedReports.forEach(
+        report => {
+
+            container.innerHTML += createCard(
+                report,
+                false
+            );
+
+        }
+    );
+
+}
+
+function createCard(
+    report,
+    isMyReport
+) {
+
+    return `
+
+        <div
+            class="card border-0 shadow-sm p-4 mb-3 soft-card">
+
+            <h5 class="dashboard-title">
+
+                ${report.title}
+
+            </h5>
+
+            <p>
+                <strong>Kategori:</strong>
+                ${report.category}
+            </p>
+
+            <p>
+                <strong>Lokasi:</strong>
+                ${report.location}
+            </p>
+
+            <p>
+                <strong>Deskripsi:</strong>
+                ${report.description}
+            </p>
+
+            <p>
+                <strong>Pelapor:</strong>
+                Warga Anonim
+            </p>
+
+            <p>
+                <strong>Dibuat:</strong>
+                ${
+                    new Date(
+                        report.created_at
+                    ).toLocaleString(
+                        'id-ID'
+                    )
+                }
+            </p>
+
+            <p>
+                <strong>Terakhir Update:</strong>
+                ${
+                    new Date(
+                        report.updated_at
+                    ).toLocaleString(
+                        'id-ID'
+                    )
+                }
+            </p>
+
+            <div class="mt-3">
+
+                <span
+                    class="
+                    ${
+                        report.status === 'DRAFT'
+                            ? 'badge-draft'
+                        : report.status === 'REPORTED'
+                            ? 'badge-reported'
+                        : report.status === 'VERIFIED'
+                            ? 'badge-verified'
+                        : report.status === 'IN_PROGRESS'
+                            ? 'badge-progress'
+                        : 'badge-resolved'
+                    }">
+
+                    ${
+                        report.status === 'IN_PROGRESS'
+                            ? 'IN PROGRESS'
+                            : report.status
+                    }
+
+                </span>
+
+            </div>
+            ${
+                report.status === 'DRAFT'
+                ?
+                `
+                <div class="mt-3">
+
+                    <button
+                        class="btn btn-pink btn-sm me-2"
+                        onclick="editDraft(${report.id})">
+
+                        Edit Draft
+
+                    </button>
+
+                    <button
+                        class="btn btn-pink-outline btn-sm"
+                        onclick="deleteDraft(${report.id})">
+
+                        Hapus
+
+                    </button>
+
+                </div>
+                `
+                :
+                ''
+            }
+
+        </div>
+
+    `;
+
+}
+
+async function saveDraft() {
+
+    const reportData = {
+
+        title:
+            document.getElementById(
+                'reportTitle'
+            ).value,
+
+        category:
+            document.getElementById(
+                'reportCategory'
+            ).value,
+
+        location:
+            document.getElementById(
+                'reportLocation'
+            ).value,
+
+        description:
+            document.getElementById(
+                'reportDescription'
+            ).value,
+
+        status: 'DRAFT'
+
+    };
+
+    let response;
+
+    if (editingReportId === null) {
+
+        response =
+            await requestAPI(
+                '/api/reports/',
+                'POST',
+                reportData
+            );
+
+    } else {
+
+        response =
+            await requestAPI(
+                `/api/reports/${editingReportId}/`,
+                'PUT',
+                reportData
+            );
+
+    }
+
+    if (
+        response &&
+        (
+            response.status === 201 ||
+            response.status === 200
+        )
+    ) {
+
+        editingReportId = null;
+
+        loadMyReports();
+
+        loadFeedReports();
+
+        loadSummaryStats();
 
     }
 

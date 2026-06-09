@@ -2,10 +2,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views import View
 from django.urls import reverse_lazy
+from django.db.models import Q
+
 from .models import Report
 from .forms import ReportForm
+
 from django.contrib import messages
-from django.http import JsonResponse   # ⬅️ TAMBAHAN
+from django.http import JsonResponse
 
 
 # HOME
@@ -50,13 +53,42 @@ class ReportCreateView(CreateView):
 
 # READ (LIST)
 class ReportListView(ListView):
+
     model = Report
+
     template_name = 'main_app/report_list.html'
+
     context_object_name = 'reports'
+
     ordering = ['-created_at']
 
     def get_queryset(self):
-        return Report.objects.all().order_by('-created_at')
+
+        if self.request.user.is_authenticated:
+
+            return (
+                Report.objects
+                .filter(
+                    Q(status__in=[
+                        'REPORTED',
+                        'VERIFIED',
+                        'IN_PROGRESS',
+                        'RESOLVED'
+                    ])
+                    |
+                    Q(
+                        reporter=self.request.user,
+                        status='DRAFT'
+                    )
+                )
+                .order_by('-created_at')
+            )
+
+        return (
+            Report.objects
+            .exclude(status='DRAFT')
+            .order_by('-created_at')
+        )
 
 
 # UPDATE
@@ -122,7 +154,11 @@ class ReportUpdateStatusView(View):
 
 
 def report_detail_api(request, pk):
-    report = get_object_or_404(Report, pk=pk)
+
+    report = get_object_or_404(
+        Report,
+        pk=pk
+    )
 
     data = {
         "title": report.title,

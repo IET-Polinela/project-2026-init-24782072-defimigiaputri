@@ -71,14 +71,10 @@ class ReportViewSet(
 
         elif tab == 'feed':
 
-            return queryset.filter(
-                ~Q(
-                    reporter=user
-                )
-                &
-                ~Q(
-                    status='DRAFT'
-                )
+            return queryset.exclude(
+                status='DRAFT'
+            ).order_by(
+                '-created_at'
             )
 
         return queryset.filter(

@@ -130,12 +130,23 @@ const routes = {
 
                 <p class="soft-text">
 
-                    Smart City Issue Reporting Lampung merupakan
-                    portal pelaporan masyarakat yang digunakan
-                    untuk menyampaikan berbagai permasalahan
-                    publik seperti infrastruktur, fasilitas umum,
-                    lingkungan, dan layanan masyarakat agar dapat
-                    ditindaklanjuti secara cepat dan terstruktur.
+                    Selamat datang di Portal Citizen Smart City Lampung.
+                    Platform ini hadir sebagai sarana kolaborasi antara
+                    masyarakat dan pemerintah daerah dalam membangun
+                    lingkungan yang lebih baik melalui partisipasi aktif
+                    warga.
+
+                    <br>
+
+                    Setiap masukan, laporan, dan informasi yang diberikan
+                    akan menjadi bagian penting dalam mendukung terciptanya
+                    pelayanan publik yang lebih responsif, transparan,
+                    dan berorientasi pada kebutuhan masyarakat.
+
+                    <br>
+
+                    Mari bersama-sama menciptakan kota yang aman,
+                    nyaman, tertata, dan berkelanjutan untuk semua!
 
                 </p>
 
@@ -157,45 +168,79 @@ const routes = {
                 </h6>
 
                 <p class="soft-text">
+                <ul class="soft-text">
+                    <li>Gunakan bahasa yang sopan dan jelas saat membuat laporan.</li>
+                    <li>Sertakan informasi lokasi yang akurat.</li>
+                    <li>Hindari laporan duplikat atau tidak sesuai fakta.</li>
+                    <li>Kerahasiaan data pelapor dijamin dan tidak ditampilkan kepada pengguna lain.</li>
+                </ul>
 
-                    Portal Citizen Smart City
-                    Lampung siap digunakan.
-
+                <p class="soft-text">
+                    Terima kasih telah berpartisipasi dalam mewujudkan lingkungan yang lebih aman, nyaman, dan tertata.
                 </p>
 
             </div>
 
         </aside>
 
-        <section class="col-12 col-lg-6">
+        <section class="col-12">
 
             <div
                 class="card border-0 shadow-sm p-4 soft-card">
 
-                <h5 class="dashboard-title">
+                <div class="text-center">
 
-                    Daftar Laporan
+                    <h4 class="dashboard-title">
 
-                </h5>
+                        Daftar Laporan
+
+                    </h4>
+
+                </div>
 
                 <hr>
 
-                <div
-                    id="listContainer">
+                <div class="row g-4">
+
+                <div class="col-12 col-xl-6">
+
+                    <div class="text-center mb-4">
+
+                        <div class="section-header laporan-header">
+
+                            Laporan Saya
+
+                        </div>
+
+                    </div>
+
+                    <div id="myReportsContainer"></div>
 
                 </div>
 
-                <div
-                    id="paginationContainer"
-                    class="mt-3">
+                <div class="col-12 col-xl-6 feed-column">
+
+                    <div class="text-center mb-4">
+
+                        <div class="section-header feed-header">
+
+                            Feed Kota
+
+                        </div>
+
+                    </div>
+
+                    <div id="feedContainer"></div>
+
+                    <div
+                        id="feedPaginationContainer"
+                        class="mt-4 text-center">
+
+                    </div>
 
                 </div>
 
-            </div>
-
-        </section>
-
-        <div
+            <div
             class="modal fade"
             id="reportModal"
             tabindex="-1">
@@ -266,10 +311,19 @@ const routes = {
 
                         <button
                             type="button"
+                            id="btnDraft"
+                            class="btn btn-outline-secondary">
+
+                            Simpan Draft
+
+                        </button>
+
+                        <button
+                            type="button"
                             id="btnSubmit"
                             class="btn btn-pink">
 
-                            Simpan
+                            Ajukan
 
                         </button>
 
@@ -306,14 +360,18 @@ function handleRouting() {
         typeof setupLoginForm === 'function'
     ) {
         setupLoginForm();
+        setActiveNavbar();
     }
 
-    if (
-        hash === '#dashboard' &&
-        typeof loadDashboardData === 'function'
-    ) {
+    if (hash === '#dashboard') {
 
-        loadDashboardData();
+        loadMyReports();
+
+        loadFeedReports();
+
+        loadSummaryStats();
+
+        setActiveNavbar();
 
         const submitButton =
             document.getElementById(
@@ -324,6 +382,25 @@ function handleRouting() {
 
             submitButton.onclick =
                 submitReport;
+
+        }
+
+        if (submitButton) {
+
+            submitButton.onclick =
+                submitReport;
+
+        }
+
+        const draftButton =
+            document.getElementById(
+                'btnDraft'
+            );
+
+        if (draftButton) {
+
+            draftButton.onclick =
+                saveDraft;
 
         }
 

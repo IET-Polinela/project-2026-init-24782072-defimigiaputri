@@ -26,6 +26,10 @@ async function requestAPI(
 
     }
 
+    console.log(
+        headers
+    );
+
     const config = {
         method,
         headers

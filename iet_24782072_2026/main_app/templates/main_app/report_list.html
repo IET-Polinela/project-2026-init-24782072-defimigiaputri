@@ -43,15 +43,39 @@
             <td class="location-cell">{{ report.location }}</td>
 
             <td>
-                {% if report.status == 'REPORTED' %}
-                    <span class="badge-reported">Reported</span>
+
+                {% if report.status == 'DRAFT' %}
+
+                    <span class="badge-draft">
+                        Draft
+                    </span>
+
+                {% elif report.status == 'REPORTED' %}
+
+                    <span class="badge-reported">
+                        Reported
+                    </span>
+
                 {% elif report.status == 'VERIFIED' %}
-                    <span class="badge-verified">Verified</span>
+
+                    <span class="badge-verified">
+                        Verified
+                    </span>
+
                 {% elif report.status == 'IN_PROGRESS' %}
-                    <span class="badge-progress">In Progress</span>
-                {% else %}
-                    <span class="badge-resolved">Resolved</span>
+
+                    <span class="badge-progress">
+                        In Progress
+                    </span>
+
+                {% elif report.status == 'RESOLVED' %}
+
+                    <span class="badge-resolved">
+                        Resolved
+                    </span>
+
                 {% endif %}
+
             </td>
 
             <td>

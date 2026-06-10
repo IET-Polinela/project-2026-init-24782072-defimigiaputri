@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-lhic&%2-ay2y&tvxe0h55af_*#=%$v#0yrj3g-%3fe$wvpy95o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*'
+]
 
 
 # Application definition
@@ -132,6 +134,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 AUTH_USER_MODEL = 'usermanagement_24782072.User'
 

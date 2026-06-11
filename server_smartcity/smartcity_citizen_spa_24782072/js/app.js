@@ -123,6 +123,10 @@ window.addEventListener(
     updateNavbar
 );
 
+let myReportsPage = 1;
+
+let myReportsTotalPages = 1;
+
 let myReports = [];
 
 let feedReports = [];
@@ -770,11 +774,13 @@ function logout() {
 
 }
 
-async function loadMyReports() {
+async function loadMyReports(page = 1) {
+
+    myReportsPage = page;
 
     const response =
         await requestAPI(
-            '/api/reports/?tab=my_reports&page_size=1000',
+            `/api/reports/?tab=my_reports&page=${page}`,
             'GET'
         );
 
@@ -789,7 +795,14 @@ async function loadMyReports() {
         myReports =
             data.results || [];
 
+        myReportsTotalPages =
+            Math.ceil(
+                data.count / 10
+            );
+
         renderMyReports();
+
+        renderMyReportsPagination();
 
     }
 
@@ -941,6 +954,46 @@ function createCard(
     isMyReport
 ) {
 
+    let progress = 0;
+    let progressClass = '';
+    let badgeClass = '';
+
+    if (report.status === 'DRAFT') {
+
+        progress = 20;
+        progressClass = '#d9d4d4';
+        badgeClass = 'badge-draft';
+
+    }
+    else if (report.status === 'REPORTED') {
+
+        progress = 40;
+        progressClass = '#e8c9c1';
+        badgeClass = 'badge-reported';
+
+    }
+    else if (report.status === 'VERIFIED') {
+
+        progress = 60;
+        progressClass = '#e7b6aa';
+        badgeClass = 'badge-verified';
+
+    }
+    else if (report.status === 'IN_PROGRESS') {
+
+        progress = 80;
+        progressClass = '#efcbbf';
+        badgeClass = 'badge-progress';
+
+    }
+    else if (report.status === 'RESOLVED') {
+
+        progress = 100;
+        progressClass = '#df9bb0';
+        badgeClass = 'badge-resolved';
+
+    }
+
     return `
 
         <div
@@ -997,18 +1050,7 @@ function createCard(
             <div class="mt-3">
 
                 <span
-                    class="
-                    ${
-                        report.status === 'DRAFT'
-                            ? 'badge-draft'
-                        : report.status === 'REPORTED'
-                            ? 'badge-reported'
-                        : report.status === 'VERIFIED'
-                            ? 'badge-verified'
-                        : report.status === 'IN_PROGRESS'
-                            ? 'badge-progress'
-                        : 'badge-resolved'
-                    }">
+                    class="${badgeClass} px-3 py-2">
 
                     ${
                         report.status === 'IN_PROGRESS'
@@ -1019,6 +1061,42 @@ function createCard(
                 </span>
 
             </div>
+
+            <div class="mt-3">
+
+                <small>
+
+                    Progress Status
+
+                </small>
+
+                <div
+                    class="progress mt-1"
+                    style="height:10px;">
+
+                    <div
+                        class="progress-bar"
+                        style="
+                            width:${progress}%;
+                            background-color:${progressClass};
+                        ">
+
+                    </div>
+
+                </div>
+
+                <div class="text-end mt-1">
+
+                    <small>
+
+                        ${progress}%
+
+                    </small>
+
+                </div>
+
+            </div>
+
             ${
                 report.status === 'DRAFT'
                 ?
@@ -1052,7 +1130,7 @@ function createCard(
     `;
 
 }
-
+         
 async function saveDraft() {
 
     const reportData = {
@@ -1120,5 +1198,57 @@ async function saveDraft() {
         loadSummaryStats();
 
     }
+
+}
+
+function renderMyReportsPagination() {
+
+    const container =
+        document.getElementById(
+            'myReportsPaginationContainer'
+        );
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = `
+
+        <button
+            class="btn btn-soft me-2"
+            ${
+                myReportsPage === 1
+                    ? 'disabled'
+                    : ''
+            }
+            onclick="loadMyReports(${myReportsPage - 1})">
+
+            Previous
+
+        </button>
+
+        <span>
+
+            Halaman
+            ${myReportsPage}
+            dari
+            ${myReportsTotalPages}
+
+        </span>
+
+        <button
+            class="btn btn-soft ms-2"
+            ${
+                myReportsPage === myReportsTotalPages
+                    ? 'disabled'
+                    : ''
+            }
+            onclick="loadMyReports(${myReportsPage + 1})">
+
+            Next
+
+        </button>
+
+    `;
 
 }

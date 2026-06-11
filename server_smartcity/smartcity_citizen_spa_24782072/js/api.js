@@ -1,5 +1,6 @@
 const BASE_URL =
     'http://103.151.63.87:8006';
+    'http://127.0.0.1:5500';
 
 
 async function requestAPI(

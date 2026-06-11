@@ -216,6 +216,11 @@ const routes = {
 
                     <div id="myReportsContainer"></div>
 
+                    <div
+                        id="myReportsPaginationContainer"
+                        class="text-center mt-3">
+                    </div>
+
                 </div>
 
                 <div class="col-12 col-xl-6 feed-column">
@@ -377,13 +382,6 @@ function handleRouting() {
             document.getElementById(
                 'btnSubmit'
             );
-
-        if (submitButton) {
-
-            submitButton.onclick =
-                submitReport;
-
-        }
 
         if (submitButton) {
 

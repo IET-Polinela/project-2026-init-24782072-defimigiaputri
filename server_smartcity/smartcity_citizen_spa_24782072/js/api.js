@@ -46,7 +46,7 @@ async function requestAPI(
 
     const response =
         await fetch(
-            `${API_BASE_URL}${endpoint}`,
+            `${BASE_URL}${endpoint}`,
             config
         );
 

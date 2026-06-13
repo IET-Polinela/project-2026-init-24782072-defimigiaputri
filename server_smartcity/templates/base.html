@@ -27,16 +27,21 @@
 
         .navbar-custom {
             background-color: #f4b6b2;
-            text-align: center;
-            padding: 10px;
+            padding: 10px 15px;
         }
 
-        .navbar-custom a {
-            margin: 0 25px;
-            text-decoration: none;
+        .navbar-custom .navbar-brand {
             color: #6d4c41;
             font-weight: bold;
-            transition: 0.3s;
+        }
+
+        .navbar-custom .nav-link {
+            color: #6d4c41 !important;
+            font-weight: bold;
+        }
+
+        .navbar-custom .nav-link.active {
+            border-bottom: 3px solid #6d4c41;
         }
 
         .navbar-custom a.active {
@@ -48,7 +53,8 @@
         }
 
         .container-box {
-            width: 60%;
+            max-width: 900px;
+            width: 100%;
             margin: 50px auto;
             background: white;
             padding: 20px;
@@ -230,13 +236,6 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .navbar-custom a {
-                display: inline-block;
-                margin: 5px 10px;
-            }
-        }
-
         .footer {
             text-align: center;
             padding: 15px;
@@ -244,18 +243,7 @@
             margin-top: 50px;
         }
 
-        .navbar-custom {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
         .user-info {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
             font-family: Georgia, serif;
             font-size: 15px;
             font-weight: 600;
@@ -291,54 +279,113 @@
                 margin-bottom: 10px;
             }
 
-            .reported-title {
-                background-color: #f8b6c1; 
-                color: #333;
+        .reported-title {
+            background-color: #f8b6c1; 
+            color: #333;
+        }
+
+        .resolved-title {
+            background-color: #fca1b1; 
+            color: white;
+        }
+
+        .table-header th {
+            background-color: #f8b6c1;
+            color: #333;
+            text-align: center;
+        }
+
+        .reported-title + table thead th {
+            background-color: #fca1b1;
+            color: white;
+        }
+             
+        .resolved-title + table thead th {
+            background-color: #f8b6c1;
+            color: #333;
+        }
+
+        .highlight {
+            background: linear-gradient(transparent 60%, #ffccd5 60%);
+            color: #c06c84;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .badge-modal {
+            background-color: #f18d9f;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+
+        .badge-draft{
+            background:#d6d6d6;
+            color:#555;
+            padding:6px 12px;
+            border-radius:8px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                font-size: 18px;
+                padding: 12px;
             }
 
-            .resolved-title {
-                background-color: #fca1b1; 
-                color: white;
+            .home-title {
+                font-size: 28px;
             }
 
-            .table-header th {
-                background-color: #f8b6c1;
-                color: #333;
+            .title-badge {
+                font-size: 18px;
+                padding: 8px 18px;
+            }
+
+            .container-box {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .user-info {
+                margin-top: 10px;
+                display: block;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            .navbar-nav {
                 text-align: center;
             }
 
-            .reported-title + table thead th {
-                background-color: #fca1b1;
-                color: white;
-            
-            }
-             
-            .resolved-title + table thead th {
-                background-color: #f8b6c1;
-                color: #333;
+            .nav-item {
+                margin: 5px 0;
             }
 
-            .highlight {
-                background: linear-gradient(transparent 60%, #ffccd5 60%);
-                color: #c06c84;
-                font-weight: bold;
-                padding: 2px 4px;
-                border-radius: 4px;
+            .btn-sm {
+                font-size: 11px;
+                padding: 4px 8px;
             }
 
-            .badge-modal {
-                background-color: #f18d9f;
-                color: white;
-                padding: 5px 10px;
-                border-radius: 8px;
+            .table {
+                font-size: 12px;
             }
 
-            .badge-draft{
-                background:#d6d6d6;
-                color:#555;
-                padding:6px 12px;
-                border-radius:8px;
+            .container-box {
+                overflow-x: auto;
             }
+
+            .navbar-toggler {
+                border-color: #6d4c41;
+            }
+
+            .navbar-toggler:focus {
+                box-shadow: none;
+            }
+
+        }
 
     </style>
 </head>
@@ -349,34 +396,112 @@
     Smart City Issue Reporting Lampung
 </div>
 
-<div class="navbar-custom">
-    <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
-    <a href="{% url 'about' %}" class="{% if request.path == '/about/' %}active{% endif %}">About</a>
-    <a href="{% url 'contacts' %}" class="{% if request.path == '/contacts/' %}active{% endif %}">Contact</a>
-    <a href="{% url 'report_list' %}" class="{% if '/reports' in request.path %}active{% endif %}">Reports</a>
-    <a href="{% url 'dashboard' %}" class="{% if '/dashboard' in request.path %}active{% endif %}">Dashboard</a>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container-fluid">
 
-    {% if user.is_authenticated %}
-        <span class="user-info">
-            <i class="bi bi-person-circle"></i>
-            {{ user.username }}
-            {% if user.is_admin %}
-                <span class="role-admin">(Admin)</span>
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <i class="bi bi-house-heart-fill"></i>
+            Smart City
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div
+            class="collapse navbar-collapse"
+            id="navbarNav">
+
+            <ul class="navbar-nav me-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/' %}active{% endif %}"
+                       href="{% url 'home' %}">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/about/' %}active{% endif %}"
+                       href="{% url 'about' %}">
+                        About
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/contacts/' %}active{% endif %}"
+                       href="{% url 'contacts' %}">
+                        Contact
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if '/reports' in request.path %}active{% endif %}"
+                       href="{% url 'report_list' %}">
+                        Reports
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {% if '/dashboard' in request.path %}active{% endif %}"
+                       href="{% url 'dashboard' %}">
+                        Dashboard
+                    </a>
+                </li>
+
+            </ul>
+
+            {% if user.is_authenticated %}
+
+                <span class="me-3 user-info position-static">
+
+                    <i class="bi bi-person-circle"></i>
+
+                    {{ user.username }}
+
+                    {% if user.is_admin %}
+                        <span class="role-admin">(Admin)</span>
+                    {% else %}
+                        <span class="role-citizen">(Citizen)</span>
+                    {% endif %}
+
+                </span>
+
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="btn btn-outline-dark btn-sm">
+
+                        Logout
+
+                    </button>
+
+                </form>
+
             {% else %}
-                <span class="role-citizen">(Citizen)</span>
-            {% endif %}
-        </span>
 
-        <form method="POST" action="{% url 'logout' %}" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit" style="background:none; border:none; color:#6d4c41; font-weight:bold;">
-                Logout
-            </button>
-        </form>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-    {% endif %}
-</div>
+                <a
+                    href="{% url 'login' %}"
+                    class="btn btn-outline-dark btn-sm">
+
+                    Login
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+</nav>
 
 <div class="container mt-2">
     {% block breadcrumb %}{% endblock %}

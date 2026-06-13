@@ -26,6 +26,8 @@
 
 {% if reports|length > 0 %}
 
+<div class="table-responsive">
+
 <table class="table table-bordered table-hover text-center align-middle">
     <thead class="table-light">
         <tr>
@@ -102,19 +104,26 @@
                 </form>
                 {% endif %}
 
-                <div class="mt-2">
+                <div class="mt-2 d-flex flex-wrap gap-1 justify-content-center">
                     <button class="btn btn-primary btn-sm detail-btn" data-id="{{ report.id }}">Detail</button>
                     <a href="{% url 'update_report' report.id %}" class="btn btn-warning btn-sm">Update</a>
                     <a href="{% url 'delete_report' report.id %}" class="btn btn-danger btn-sm">Delete</a>
                 </div>
 
             </td>
+
         </tr>
+
     {% endfor %}
+
     </tbody>
+
 </table>
 
+</div>
+
 {% else %}
+
 <div class="text-center">
     <p><b>Belum ada laporan</b></p>
 </div>

@@ -31,9 +31,13 @@
         }
 
         .soft-card {
-            background-color: #fff8f7;
-            border-radius: 15px;
-        }
+            background: white;
+            border-radius: 20px;
+            transition: 0.3s;
+            box-shadow:
+                0 8px 24px
+                rgba(234,140,164,.15);
+                }
 
         .soft-text {
             color: #6d4c41;
@@ -46,13 +50,21 @@
 
         body {
             font-family: "Times New Roman", serif;
-            background: linear-gradient(to right, #ffe5d9, #fff1ed);
+            background: linear-gradient(
+                135deg,
+                #fff7f7,
+                #ffe8ec,
+                #fff3f1
+            );
             min-height: 100vh;
         }
 
         .header {
-            background-color: #d88c9a;
-            color: white;
+            background: linear-gradient(
+                135deg,
+                #d88c9a,
+                #ea8ca4
+            );
             text-align: center;
             padding: 18px;
             font-family: Georgia, serif;
@@ -61,7 +73,13 @@
         }
 
         .navbar-custom {
-            background-color: #f4b6b2;
+            background: rgba(
+                255,
+                255,
+                255,
+                0.55
+            );
+            backdrop-filter: blur(12px);
             padding: 12px;
         }
 
@@ -99,12 +117,6 @@
             font-family: Georgia, serif;
             font-weight: bold;
             margin-top: 10px;
-        }
-
-        .btn-pink {
-            background-color: #f8b4a9;
-            color: white;
-            border: none;
         }
 
         .btn-pink:hover {
@@ -173,13 +185,24 @@
         }
 
         .btn-pink {
-            background-color: #ff9eab;
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5a6b7,
+                    #ea8ca4
+                );
             color: white;
             border: none;
+            border-radius: 12px;
+            transition: .3s;
         }
 
         .btn-pink:hover {
-            background-color: #f5707b;
+            transform:
+                translateY(-2px);
+            box-shadow:
+                0 8px 18px
+                rgba(234,140,164,.35);
             color: white;
         }
 
@@ -254,6 +277,137 @@
             font-weight: bold;
         }
 
+        .hero-section{
+            padding:80px 20px;
+            text-align:center;
+        }
+
+        .hero-title{
+            font-size:48px;
+            font-weight:bold;
+            color:#c06c84;
+            font-family:Georgia, serif;
+        }
+
+        .hero-subtitle{
+            max-width:700px;
+            margin:auto;
+            color:#6d4c41;
+        }
+
+        .stat-card{
+            background:#fff8f7;
+            border-radius:20px;
+            padding:25px;
+            text-align:center;
+            transition:0.3s;
+            box-shadow:0 4px 12px rgba(0,0,0,.08);
+        }
+
+        .stat-number{
+            color:#ea8ca4;
+            font-size:42px;
+            font-weight:bold;
+            font-family:Georgia, serif;
+        }
+
+        .stat-card:hover{
+            transform:translateY(-6px);
+        }
+
+        .feature-card{
+            background:white;
+            border-radius:18px;
+            padding:25px;
+            text-align:center;
+            height:100%;
+        }
+
+        .hero-card {
+            background: linear-gradient(
+                135deg,
+                #fff8f7,
+                #fff1ed
+            );
+        }
+
+        .feature-icon {
+            font-size: 45px;
+            color: #ea8ca4;
+            transition: 0.3s;
+            margin-bottom:15px;
+        }
+
+        .soft-card:hover {
+            transform:
+                translateY(-8px);
+            box-shadow:
+                0 15px 35px
+                rgba(234,140,164,.25);
+            transition: 0.3s;
+        }
+
+        .cta-section{
+        background:linear-gradient(
+            135deg,
+            #f4b6b2,
+            #ea8ca4
+        );
+            color:white;
+            padding:60px 30px;
+            border-radius:25px;
+        }
+
+        .cta-section h2{
+            font-family:Georgia, serif;
+        }
+
+        .cta-section .btn{
+            border-radius:12px;
+            font-weight:bold;
+        }
+
+        .status-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 12px;
+            text-align: center;
+            box-shadow:
+                0 4px 12px
+                rgba(0,0,0,.06);
+        }
+
+        .status-card h3 {
+            color: #ea8ca4;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .status-card p {
+            margin: 0;
+            color: #6d4c41;
+        }
+
+        .modal-content {
+            border-radius: 20px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 12px;
+        }
+
+        .footer {
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4b6b2,
+                    #ea8ca4
+                );
+            color: white;
+        }
+
     </style>
 
 </head>
@@ -289,7 +443,7 @@
 
                     <li class="nav-item">
 
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="#home">
 
                             <i class="bi bi-house-fill"></i>
 
@@ -533,8 +687,6 @@
 </div>
 
     <div class="footer">
-        © 2026 Pemrograman Internet 1 (1416)
-        <br>
         @_mgiaa.dv
     </div>
 

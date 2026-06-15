@@ -1,4 +1,663 @@
 const routes = {
+    
+    '#home': `
+
+    <div class="container py-5">
+
+        <div class="card border-0 shadow-lg soft-card p-5 text-center">
+
+            <i class="bi bi-buildings-fill dashboard-icon fs-1"></i>
+
+            <h1 class="dashboard-title mt-3">
+
+                Smart City Portal Lampung
+
+            </h1>
+
+            <p class="soft-text fs-5 mt-3">
+
+                Portal layanan masyarakat untuk melaporkan,
+                memantau, dan mendukung pembangunan kota
+                yang lebih aman, nyaman, transparan,
+                dan berkelanjutan.
+
+            </p>
+
+            <div class="mt-4">
+
+                <a
+                    href="#login"
+                    class="btn btn-pink btn-lg me-2">
+
+                    <i class="bi bi-box-arrow-in-right me-2"></i>
+
+                    Login Warga
+
+                </a>
+
+                <a
+                    href="#login"
+                    class="btn btn-soft btn-lg">
+
+                    <i class="bi bi-info-circle me-2"></i>
+
+                    Informasi
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="row mt-5 g-4">
+
+            <div class="col-md-4">
+
+                <div class="card border-0 shadow-sm soft-card p-4 text-center">
+
+                    <i class="bi bi-file-earmark-text dashboard-icon fs-2"></i>
+
+                    <h3 class="dashboard-title mt-2">
+
+                        1200+
+
+                    </h3>
+
+                    <p class="soft-text">
+
+                        Total Laporan Masuk
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card border-0 shadow-sm soft-card p-4 text-center">
+
+                    <i class="bi bi-check-circle dashboard-icon fs-2"></i>
+
+                    <h3 class="dashboard-title mt-2">
+
+                        95%
+
+                    </h3>
+
+                    <p class="soft-text">
+
+                        Tingkat Penyelesaian
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card border-0 shadow-sm soft-card p-4 text-center">
+
+                    <i class="bi bi-clock-history dashboard-icon fs-2"></i>
+
+                    <h3 class="dashboard-title mt-2">
+
+                        24/7
+
+                    </h3>
+
+                    <p class="soft-text">
+
+                        Monitoring Layanan
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mt-5">
+
+            <div class="text-center mb-4">
+
+                <h2 class="dashboard-title">
+
+                    Layanan Unggulan
+
+                </h2>
+
+                <p class="soft-text">
+
+                    Kategori layanan yang dapat dilaporkan
+                    oleh masyarakat melalui Smart City Portal.
+
+                </p>
+
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-3">
+
+                    <div class="card border-0 shadow-sm soft-card p-4 text-center h-100">
+
+                        <i class="bi bi-cone-striped feature-icon"></i>
+
+                        <h5 class="dashboard-title mt-3">
+
+                            Infrastruktur
+
+                        </h5>
+
+                        <p class="soft-text">
+
+                            Jalan rusak, trotoar,
+                            drainase dan fasilitas kota.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card border-0 shadow-sm soft-card p-4 text-center h-100">
+
+                        <i class="bi bi-tree-fill feature-icon"></i>
+
+                        <h5 class="dashboard-title mt-3">
+
+                            Lingkungan
+
+                        </h5>
+
+                        <p class="soft-text">
+
+                            Sampah, pencemaran,
+                            kebersihan dan ruang hijau.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card border-0 shadow-sm soft-card p-4 text-center h-100">
+
+                        <i class="bi bi-shield-check feature-icon"></i>
+
+                        <h5 class="dashboard-title mt-3">
+
+                            Keamanan
+
+                        </h5>
+
+                        <p class="soft-text">
+
+                            Gangguan keamanan,
+                            ketertiban dan keselamatan warga.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card border-0 shadow-sm soft-card p-4 text-center h-100">
+
+                        <i class="bi bi-building feature-icon"></i>
+
+                        <h5 class="dashboard-title mt-3">
+
+                            Fasilitas Umum
+
+                        </h5>
+
+                        <p class="soft-text">
+
+                            Lampu jalan,
+                            taman kota dan fasilitas publik.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mt-5">
+
+            <div class="text-center mb-4">
+
+                <h2 class="dashboard-title">
+
+                    Alur Pelaporan
+
+                </h2>
+
+                <p class="soft-text">
+
+                    Setiap laporan diproses secara bertahap
+                    agar penanganan lebih transparan.
+
+                </p>
+
+            </div>
+
+            <div class="row text-center g-4">
+
+                <div class="col-md-3">
+
+                    <div class="card border-0 shadow-sm soft-card p-4">
+
+                        <i class="bi bi-pencil-square feature-icon"></i>
+
+                        <h5 class="dashboard-title">
+
+                            1
+
+                        </h5>
+
+                        <p class="soft-text">
+
+                            Buat Laporan
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card border-0 shadow-sm soft-card p-4">
+
+                        <i class="bi bi-patch-check-fill feature-icon"></i>
+
+                        <h5 class="dashboard-title">
+
+                            2
+
+                        </h5>
+
+                        <p class="soft-text">
+
+                            Verifikasi
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card border-0 shadow-sm soft-card p-4">
+
+                        <i class="bi bi-tools feature-icon"></i>
+
+                        <h5 class="dashboard-title">
+
+                            3
+
+                        </h5>
+
+                        <p class="soft-text">
+
+                            Diproses
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card border-0 shadow-sm soft-card p-4">
+
+                        <i class="bi bi-check-circle-fill feature-icon"></i>
+
+                        <h5 class="dashboard-title">
+
+                            4
+
+                        </h5>
+
+                        <p class="soft-text">
+
+                            Selesai
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mt-5">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-6">
+
+                    <h2 class="dashboard-title">
+
+                        Tentang Smart City Lampung
+
+                    </h2>
+
+                    <p class="soft-text">
+
+                        Smart City Issue Reporting Lampung merupakan platform
+                        digital yang membantu masyarakat menyampaikan laporan
+                        terkait fasilitas umum, lingkungan, infrastruktur,
+                        keamanan, dan pelayanan publik.
+
+                    </p>
+
+                    <p class="soft-text">
+
+                        Melalui sistem pelaporan yang transparan dan terintegrasi,
+                        setiap laporan dapat dipantau statusnya mulai dari
+                        pelaporan hingga penyelesaian.
+
+                    </p>
+
+                </div>
+
+                <div class="col-lg-6">
+
+                    <div class="card border-0 shadow-sm p-4 soft-card">
+
+                        <h5 class="dashboard-title">
+
+                            Smart City Goals
+
+                        </h5>
+
+                        <hr>
+
+                        <p class="soft-text">
+                            ✅ Pelayanan publik yang responsif
+                        </p>
+
+                        <p class="soft-text">
+                            ✅ Lingkungan yang aman dan nyaman
+                        </p>
+
+                        <p class="soft-text">
+                            ✅ Infrastruktur yang terawat
+                        </p>
+
+                        <p class="soft-text">
+                            ✅ Kolaborasi pemerintah dan masyarakat
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mt-5">
+
+            <div class="text-center mb-4">
+
+                <h2 class="dashboard-title">
+
+                    Berita & Pengumuman
+
+                </h2>
+
+                <p class="soft-text">
+
+                    Informasi terbaru mengenai layanan dan pembangunan kota.
+
+                </p>
+
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-4">
+
+                    <div class="card border-0 shadow-sm h-100 soft-card">
+
+                        <div class="card-body">
+
+                            <span class="badge bg-light text-dark mb-3">
+
+                                Infrastruktur
+
+                            </span>
+
+                            <h5 class="dashboard-title">
+
+                                Perbaikan Jalan Kota
+
+                            </h5>
+
+                            <p class="soft-text">
+
+                                Pemerintah daerah melakukan perbaikan
+                                beberapa ruas jalan utama untuk
+                                meningkatkan kenyamanan pengguna jalan.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card border-0 shadow-sm h-100 soft-card">
+
+                        <div class="card-body">
+
+                            <span class="badge bg-light text-dark mb-3">
+
+                                Lingkungan
+
+                            </span>
+
+                            <h5 class="dashboard-title">
+
+                                Program Lampung Bersih
+
+                            </h5>
+
+                            <p class="soft-text">
+
+                                Gerakan bersama masyarakat dalam
+                                menjaga kebersihan lingkungan dan
+                                fasilitas umum.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card border-0 shadow-sm h-100 soft-card">
+
+                        <div class="card-body">
+
+                            <span class="badge bg-light text-dark mb-3">
+
+                                Pelayanan Publik
+
+                            </span>
+
+                            <h5 class="dashboard-title">
+
+                                Sistem Pelaporan Online
+
+                            </h5>
+
+                            <p class="soft-text">
+
+                                Warga kini dapat memantau progres
+                                laporan secara real-time melalui
+                                Citizen Portal Smart City.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mt-5">
+
+            <div class="text-center mb-4">
+
+                <h2 class="dashboard-title">
+
+                    Statistik Smart City
+
+                </h2>
+
+                <p class="soft-text">
+
+                    Gambaran aktivitas pelaporan masyarakat.
+
+                </p>
+
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-3">
+
+                    <div class="card border-0 shadow-sm text-center p-4 stat-card">
+
+                        <h2 class="stat-number">
+                            245
+                        </h2>
+
+                        <p class="soft-text mb-0">
+                            Laporan Masuk
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card border-0 shadow-sm text-center p-4 stat-card">
+
+                        <h2 class="stat-number">
+                            180
+                        </h2>
+
+                        <p class="soft-text mb-0">
+                            Laporan Selesai
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card border-0 shadow-sm text-center p-4 stat-card">
+
+                        <h2 class="stat-number">
+                            40
+                        </h2>
+
+                        <p class="soft-text mb-0">
+                            Verifikasi
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="card border-0 shadow-sm text-center p-4 stat-card">
+
+                        <h2 class="stat-number">
+                            25
+                        </h2>
+
+                        <p class="soft-text mb-0">
+                            Diproses
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mt-5">
+
+            <div class="cta-section text-center">
+
+                <h2 class="fw-bold">
+
+                    Siap Melaporkan Masalah Kota?
+
+                </h2>
+
+                <p class="mt-3">
+
+                    Partisipasi Anda membantu menciptakan lingkungan yang lebih
+                    aman, nyaman, dan tertata untuk seluruh masyarakat Lampung.
+
+                </p>
+
+                <a
+                    href="#login"
+                    class="btn btn-light btn-lg mt-3">
+
+                    <i class="bi bi-send-fill me-2"></i>
+
+                    Laporkan Sekarang
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    `,
 
     '#login': `
 
@@ -77,35 +736,52 @@ const routes = {
                 class="card border-0 p-3 shadow-sm soft-card mt-3">
 
                 <h6 class="fw-bold info-title">
+
                     Status Laporan
+
                 </h6>
 
                 <hr>
 
-                <p class="soft-text">
-                    Draft :
-                    <span id="totalDraft">0</span>
-                </p>
+                <div class="status-card">
 
-                <p class="soft-text">
-                    Reported :
-                    <span id="totalReported">0</span>
-                </p>
+                    <h3 id="totalDraft">0</h3>
 
-                <p class="soft-text">
-                    Verified :
-                    <span id="totalVerified">0</span>
-                </p>
+                    <p>Draft</p>
 
-                <p class="soft-text">
-                    In Progress :
-                    <span id="totalProgress">0</span>
-                </p>
+                </div>
 
-                <p class="soft-text">
-                    Resolved :
-                    <span id="totalResolved">0</span>
-                </p>
+                <div class="status-card">
+
+                    <h3 id="totalReported">0</h3>
+
+                    <p>Reported</p>
+
+                </div>
+
+                <div class="status-card">
+
+                    <h3 id="totalVerified">0</h3>
+
+                    <p>Verified</p>
+
+                </div>
+
+                <div class="status-card">
+
+                    <h3 id="totalProgress">0</h3>
+
+                    <p>Progress</p>
+
+                </div>
+
+                <div class="status-card">
+
+                    <h3 id="totalResolved">0</h3>
+
+                    <p>Resolved</p>
+
+                </div>
 
             </div>
 
@@ -120,11 +796,22 @@ const routes = {
                     class="bi bi-house-heart-fill fs-1 dashboard-icon">
                 </i>
 
+                <div class="mb-3">
+
+                    <span class="badge badge-resolved">
+
+                        Smart City Portal
+
+                    </span>
+
+                </div>
+
                 <h4 class="mt-3 dashboard-title">
 
                     <i class="bi bi-person-heart-fill me-2"></i>
 
-                    Selamat Datang!
+                    Selamat Datang,
+                    <span id="welcomeUser"></span>
 
                 </h4>
 
@@ -350,7 +1037,7 @@ function handleRouting() {
 
     const hash =
         window.location.hash ||
-        '#login';
+        '#home';
 
     document
         .getElementById(
@@ -358,7 +1045,7 @@ function handleRouting() {
         )
         .innerHTML =
         routes[hash] ||
-        routes['#login'];
+        routes['#home'];
 
     if (
         hash === '#login' &&
@@ -399,6 +1086,26 @@ function handleRouting() {
 
             draftButton.onclick =
                 saveDraft;
+
+        }
+
+        const username =
+            localStorage.getItem(
+                'username'
+            );
+
+        const welcomeUser =
+            document.getElementById(
+                'welcomeUser'
+            );
+
+        if (
+            welcomeUser &&
+            username
+        ) {
+
+            welcomeUser.textContent =
+                username;
 
         }
 

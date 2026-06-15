@@ -18,16 +18,46 @@ function updateNavbar() {
         return;
     }
 
-    if (username) {
+    if (!username) {
+
+        navbar.innerHTML = `
+
+            <li class="nav-item">
+
+                <a
+                    class="nav-link"
+                    href="#home">
+
+                    Home
+
+                </a>
+
+            </li>
+
+            <li class="nav-item">
+
+                <a
+                    class="nav-link"
+                    href="#login">
+
+                    Login
+
+                </a>
+
+            </li>
+
+        `;
+
+        return;
+
+    }
 
     const role =
-        (
-            username === 'defii'
-        )
+        username === 'defii'
             ? 'Admin'
             : 'Citizen';
 
-        navbar.innerHTML = `
+    navbar.innerHTML = `
 
             <li class="nav-item">
 
@@ -85,8 +115,6 @@ function updateNavbar() {
         `;
 
     }
-
-}
 
 function setActiveNavbar() {
 
@@ -769,8 +797,10 @@ function logout() {
         'username'
     );
 
+    updateNavbar();
+
     window.location.hash =
-        '#login';
+        '#home';
 
 }
 

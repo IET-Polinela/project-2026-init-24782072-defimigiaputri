@@ -13,12 +13,20 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
+
         user = form.save(commit=False)
+
         user.is_admin = False
         user.is_member = True
+
         user.save()
-        messages.success(self.request, "Registrasi berhasil, silakan login")
-        return super().form_valid(form)
+
+        messages.success(
+            self.request,
+            "Registrasi berhasil, silakan login"
+        )
+
+        return redirect("login")
     
 
 class UserLoginView(LoginView):

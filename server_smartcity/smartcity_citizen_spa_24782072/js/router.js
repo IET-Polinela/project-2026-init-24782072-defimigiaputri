@@ -4,7 +4,14 @@ const routes = {
 
     <div class="container py-5">
 
-        <div class="card border-0 shadow-lg soft-card p-5 text-center">
+    <div class="alert alert-light border-0 shadow-sm text-center mb-4 shine-card">
+
+        📢 Selamat datang di Smart City Portal Lampung —
+        Laporkan masalah kota secara cepat dan transparan.
+
+    </div>
+
+        <div class="card border-0 shadow-lg soft-card shine-card p-5 text-center">
 
             <i class="bi bi-buildings-fill dashboard-icon fs-1"></i>
 
@@ -16,10 +23,13 @@ const routes = {
 
             <p class="soft-text fs-5 mt-3">
 
-                Portal layanan masyarakat untuk melaporkan,
-                memantau, dan mendukung pembangunan kota
-                yang lebih aman, nyaman, transparan,
-                dan berkelanjutan.
+                Portal Layanan Smart City Issue Reporting Lampung merupakan platform
+                pelaporan digital yang dirancang untuk menjembatani
+                komunikasi antara masyarakat dan pemerintah daerah.
+                Melalui aplikasi ini, warga dapat menyampaikan berbagai
+                laporan terkait permasalahan lingkungan, infrastruktur,
+                fasilitas umum, keamanan, hingga layanan publik secara
+                cepat dan mudah.
 
             </p>
 
@@ -53,7 +63,7 @@ const routes = {
 
             <div class="col-md-4">
 
-                <div class="card border-0 shadow-sm soft-card p-4 text-center">
+                <div class="card border-0 shadow-sm soft-card shine-card p-4 text-center">
 
                     <i class="bi bi-file-earmark-text dashboard-icon fs-2"></i>
 
@@ -241,37 +251,30 @@ const routes = {
             <div class="text-center mb-4">
 
                 <h2 class="dashboard-title">
-
-                    Alur Pelaporan
-
+                    Alur Pelayanan Laporan
                 </h2>
 
                 <p class="soft-text">
-
-                    Setiap laporan diproses secara bertahap
-                    agar penanganan lebih transparan.
-
+                    Setiap laporan akan melalui beberapa tahapan
+                    hingga selesai ditangani.
                 </p>
 
             </div>
 
-            <div class="row text-center g-4">
+            <div class="row g-3 text-center">
 
-                <div class="col-md-3">
+                <div class="col">
 
-                    <div class="card border-0 shadow-sm soft-card p-4">
+                    <div class="soft-card p-4 h-100">
 
-                        <i class="bi bi-pencil-square feature-icon"></i>
+                        <span class="badge-draft">
+                            Draft
+                        </span>
 
-                        <h5 class="dashboard-title">
+                        <p class="mt-3 soft-text">
 
-                            1
-
-                        </h5>
-
-                        <p class="soft-text">
-
-                            Buat Laporan
+                            Laporan disimpan sementara
+                            dan belum dipublikasikan.
 
                         </p>
 
@@ -279,21 +282,18 @@ const routes = {
 
                 </div>
 
-                <div class="col-md-3">
+                <div class="col">
 
-                    <div class="card border-0 shadow-sm soft-card p-4">
+                    <div class="soft-card p-4 h-100">
 
-                        <i class="bi bi-patch-check-fill feature-icon"></i>
+                        <span class="badge-reported">
+                            Reported
+                        </span>
 
-                        <h5 class="dashboard-title">
+                        <p class="mt-3 soft-text">
 
-                            2
-
-                        </h5>
-
-                        <p class="soft-text">
-
-                            Verifikasi
+                            Laporan telah dikirim
+                            oleh masyarakat.
 
                         </p>
 
@@ -301,21 +301,18 @@ const routes = {
 
                 </div>
 
-                <div class="col-md-3">
+                <div class="col">
 
-                    <div class="card border-0 shadow-sm soft-card p-4">
+                    <div class="soft-card p-4 h-100">
 
-                        <i class="bi bi-tools feature-icon"></i>
+                        <span class="badge-verified">
+                            Verified
+                        </span>
 
-                        <h5 class="dashboard-title">
+                        <p class="mt-3 soft-text">
 
-                            3
-
-                        </h5>
-
-                        <p class="soft-text">
-
-                            Diproses
+                            Laporan telah diverifikasi
+                            oleh administrator.
 
                         </p>
 
@@ -323,21 +320,37 @@ const routes = {
 
                 </div>
 
-                <div class="col-md-3">
+                <div class="col">
 
-                    <div class="card border-0 shadow-sm soft-card p-4">
+                    <div class="soft-card p-4 h-100">
 
-                        <i class="bi bi-check-circle-fill feature-icon"></i>
+                        <span class="badge-progress">
+                            In Progress
+                        </span>
 
-                        <h5 class="dashboard-title">
+                        <p class="mt-3 soft-text">
 
-                            4
+                            Laporan sedang dalam
+                            proses penanganan.
 
-                        </h5>
+                        </p>
 
-                        <p class="soft-text">
+                    </div>
 
-                            Selesai
+                </div>
+
+                <div class="col">
+
+                    <div class="soft-card p-4 h-100">
+
+                        <span class="badge-resolved">
+                            Resolved
+                        </span>
+
+                        <p class="mt-3 soft-text">
+
+                            Permasalahan telah
+                            berhasil diselesaikan.
 
                         </p>
 
@@ -349,19 +362,25 @@ const routes = {
 
         </div>
 
-        <div class="mt-5">
+        <div class="row mt-5 g-4">
 
-            <div class="row align-items-center">
+            <div class="col-lg-7">
 
-                <div class="col-lg-6">
+                <div class="card soft-card shine-card border-0 p-5 h-100">
 
-                    <h2 class="dashboard-title">
+                    <div class="text-center mb-4">
 
-                        Tentang Smart City Lampung
+                        <i class="bi bi-buildings-fill dashboard-icon fs-1"></i>
 
-                    </h2>
+                        <h2 class="dashboard-title mt-3">
 
-                    <p class="soft-text">
+                            Tentang Smart City Lampung
+
+                        </h2>
+
+                    </div>
+
+                    <p class="soft-text text-center">
 
                         Smart City Issue Reporting Lampung merupakan platform
                         digital yang membantu masyarakat menyampaikan laporan
@@ -370,45 +389,69 @@ const routes = {
 
                     </p>
 
-                    <p class="soft-text">
+                    <p class="soft-text text-center">
 
-                        Melalui sistem pelaporan yang transparan dan terintegrasi,
-                        setiap laporan dapat dipantau statusnya mulai dari
-                        pelaporan hingga penyelesaian.
+                        Melalui sistem pelaporan yang transparan dan
+                        terintegrasi, setiap laporan dapat dipantau
+                        statusnya mulai dari pelaporan hingga penyelesaian.
 
                     </p>
 
-                </div>
+                    <div class="row mt-4 text-center">
 
-                <div class="col-lg-6">
+                        <div class="col-4">
 
-                    <div class="card border-0 shadow-sm p-4 soft-card">
+                            <i class="bi bi-lightning-charge-fill feature-icon"></i>
 
-                        <h5 class="dashboard-title">
+                            <h6>Respons Cepat</h6>
 
-                            Smart City Goals
+                        </div>
 
-                        </h5>
+                        <div class="col-4">
 
-                        <hr>
+                            <i class="bi bi-eye-fill feature-icon"></i>
 
-                        <p class="soft-text">
-                            ✅ Pelayanan publik yang responsif
-                        </p>
+                            <h6>Transparan</h6>
 
-                        <p class="soft-text">
-                            ✅ Lingkungan yang aman dan nyaman
-                        </p>
+                        </div>
 
-                        <p class="soft-text">
-                            ✅ Infrastruktur yang terawat
-                        </p>
+                        <div class="col-4">
 
-                        <p class="soft-text">
-                            ✅ Kolaborasi pemerintah dan masyarakat
-                        </p>
+                            <i class="bi bi-people-fill feature-icon"></i>
+
+                            <h6>Kolaboratif</h6>
+
+                        </div>
 
                     </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-5">
+
+                <div class="card soft-card shine-card border-0 p-4 h-70">
+
+                    <h4 class="dashboard-title">
+
+                        Smart City Goals
+
+                    </h4>
+
+                    <hr>
+
+                    <ul class="soft-text">
+
+                        <li>Pelayanan publik yang responsif.</li>
+
+                        <li>Lingkungan yang aman dan nyaman.</li>
+
+                        <li>Infrastruktur yang terawat.</li>
+
+                        <li>Kolaborasi pemerintah dan masyarakat.</li>
+
+                    </ul>
 
                 </div>
 
@@ -538,6 +581,80 @@ const routes = {
 
         <div class="mt-5">
 
+                    <div class="text-center mb-4">
+
+                        <h2 class="dashboard-title">
+
+                            Nomor Darurat
+
+                        </h2>
+
+                    </div>
+
+                    <div class="row g-4">
+
+                        <div class="col-md-3">
+
+                            <div class="card soft-card shine-card p-4 text-center">
+
+                                🚓
+
+                                <h5>Polisi</h5>
+
+                                <p>110</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="card soft-card shine-card p-4 text-center">
+
+                                🚑
+
+                                <h5>Ambulans</h5>
+
+                                <p>119</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="card soft-card shine-card p-4 text-center">
+
+                                🚒
+
+                                <h5>Pemadam</h5>
+
+                                <p>113</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="card soft-card shine-card p-4 text-center">
+
+                                ☎️
+
+                                <h5>Call Center</h5>
+
+                                <p>1500-111</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+        <div class="mt-5">
+
             <div class="text-center mb-4">
 
                 <h2 class="dashboard-title">
@@ -626,6 +743,86 @@ const routes = {
 
         <div class="mt-5">
 
+            <div class="text-center mb-4">
+
+                <h2 class="dashboard-title">
+
+                    Testimoni Warga
+
+                </h2>
+
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-4">
+
+                    <div class="card soft-card shine-card p-4">
+
+                        ⭐⭐⭐⭐⭐
+
+                        <p class="soft-text mt-3">
+
+                            Laporan lampu jalan saya
+                            ditindaklanjuti dalam 2 hari.
+
+                        </p>
+
+                        <b>
+                            Andi Saputra
+                        </b>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card soft-card shine-card p-4">
+
+                        ⭐⭐⭐⭐⭐
+
+                        <p class="soft-text mt-3">
+
+                            Sangat membantu untuk
+                            menyampaikan keluhan warga.
+
+                        </p>
+
+                        <b>
+                            Rina Putri
+                        </b>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card soft-card shine-card p-4">
+
+                        ⭐⭐⭐⭐⭐
+
+                        <p class="soft-text mt-3">
+
+                            Transparan dan mudah digunakan.
+
+                        </p>
+
+                        <b>
+                            Budi Santoso
+                        </b>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mt-5">
+
             <div class="cta-section text-center">
 
                 <h2 class="fw-bold">
@@ -658,6 +855,7 @@ const routes = {
     </div>
 
     `,
+
 
     '#login': `
 
@@ -715,71 +913,45 @@ const routes = {
 
         <aside class="col-12 col-lg-3">
 
-            <div
-                class="card border-0 p-3 shadow-sm soft-card">
+        <div class="card border-0 p-3 shadow-sm soft-card mb-3">
 
-                <button
-                    id="btnNewReport"
-                    class="btn btn-pink w-100"
-                    data-bs-toggle="modal"
-                    data-bs-target="#reportModal">
+            <button
+                id="btnNewReport"
+                class="btn btn-pink w-100"
+                data-bs-toggle="modal"
+                data-bs-target="#reportModal">
 
-                    <i class="bi bi-plus-circle-fill me-2"></i>
+                <i class="bi bi-plus-circle-fill me-2"></i>
+                Laporan Baru
 
-                    Laporan Baru
+            </button>
 
-                </button>
-
-            </div>
+        </div>
 
              <div
                 class="card border-0 p-3 shadow-sm soft-card mt-3">
 
-                <h6 class="fw-bold info-title">
+                <div class="status-simple">
 
-                    Status Laporan
+                    <p>
+                        Draft : <span id="totalDraft">0</span>
+                    </p>
 
-                </h6>
+                    <p>
+                        Reported : <span id="totalReported">0</span>
+                    </p>
 
-                <hr>
+                    <p>
+                        Verified : <span id="totalVerified">0</span>
+                    </p>
 
-                <div class="status-card">
+                    <p>
+                        In Progress : <span id="totalProgress">0</span>
+                    </p>
 
-                    <h3 id="totalDraft">0</h3>
-
-                    <p>Draft</p>
-
-                </div>
-
-                <div class="status-card">
-
-                    <h3 id="totalReported">0</h3>
-
-                    <p>Reported</p>
-
-                </div>
-
-                <div class="status-card">
-
-                    <h3 id="totalVerified">0</h3>
-
-                    <p>Verified</p>
-
-                </div>
-
-                <div class="status-card">
-
-                    <h3 id="totalProgress">0</h3>
-
-                    <p>Progress</p>
-
-                </div>
-
-                <div class="status-card">
-
-                    <h3 id="totalResolved">0</h3>
-
-                    <p>Resolved</p>
+                    <p>
+                        Resolved : <span id="totalResolved">0</span>
+                    </p>
 
                 </div>
 
@@ -795,16 +967,6 @@ const routes = {
                 <i
                     class="bi bi-house-heart-fill fs-1 dashboard-icon">
                 </i>
-
-                <div class="mb-3">
-
-                    <span class="badge badge-resolved">
-
-                        Smart City Portal
-
-                    </span>
-
-                </div>
 
                 <h4 class="mt-3 dashboard-title">
 
@@ -932,102 +1094,11 @@ const routes = {
 
                 </div>
 
-            <div
-            class="modal fade"
-            id="reportModal"
-            tabindex="-1">
-
-            <div class="modal-dialog">
-
-                <div class="modal-content">
-
-                    <div class="modal-header">
-
-                        <h5
-                            class="modal-title"
-                            id="reportModalLabel">
-
-                            Tambah Laporan
-
-                        </h5>
-
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal">
-                        </button>
-
-                    </div>
-
-                    <div class="modal-body">
-
-                        <form id="reportForm">
-
-                            <input
-                                type="text"
-                                id="reportTitle"
-                                class="form-control mb-2"
-                                placeholder="Judul">
-
-                            <input
-                                type="text"
-                                id="reportCategory"
-                                class="form-control mb-2"
-                                placeholder="Kategori">
-
-                            <input
-                                type="text"
-                                id="reportLocation"
-                                class="form-control mb-2"
-                                placeholder="Lokasi">
-
-                            <textarea
-                                id="reportDescription"
-                                class="form-control mb-2"
-                                placeholder="Deskripsi"></textarea>
-
-                        </form>
-
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal">
-
-                            Batal
-
-                        </button>
-
-                        <button
-                            type="button"
-                            id="btnDraft"
-                            class="btn btn-outline-secondary">
-
-                            Simpan Draft
-
-                        </button>
-
-                        <button
-                            type="button"
-                            id="btnSubmit"
-                            class="btn btn-pink">
-
-                            Ajukan
-
-                        </button>
-
-                    </div>
-
-                </div>
-
             </div>
 
         </div>
 
-    </div>
+    </section>
 
     `
 };
@@ -1065,30 +1136,6 @@ function handleRouting() {
 
         setActiveNavbar();
 
-        const submitButton =
-            document.getElementById(
-                'btnSubmit'
-            );
-
-        if (submitButton) {
-
-            submitButton.onclick =
-                submitReport;
-
-        }
-
-        const draftButton =
-            document.getElementById(
-                'btnDraft'
-            );
-
-        if (draftButton) {
-
-            draftButton.onclick =
-                saveDraft;
-
-        }
-
         const username =
             localStorage.getItem(
                 'username'
@@ -1120,4 +1167,25 @@ window.addEventListener(
 window.addEventListener(
     'DOMContentLoaded',
     handleRouting
+);
+
+window.addEventListener(
+    'DOMContentLoaded',
+    () => {
+
+        document
+            .getElementById('btnSubmit')
+            ?.addEventListener(
+                'click',
+                submitReport
+            );
+
+        document
+            .getElementById('btnDraft')
+            ?.addEventListener(
+                'click',
+                saveDraft
+            );
+
+    }
 );

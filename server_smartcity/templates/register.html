@@ -1,29 +1,96 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block breadcrumb %}
+
 <nav>
     Home > Register
 </nav>
+{% endblock %}
 
-<div class="container-box">
+{% block content %}
 
-    <div style="text-align:center;">
-        <h2 class="title-badge">Register</h2>
+<div class="row justify-content-center">
+
+```
+<div class="col-md-6">
+
+    <div class="card soft-card p-5">
+
+        <div class="text-center">
+
+            <i class="bi bi-person-plus-fill feature-icon display-4"></i>
+
+            <h2 class="title-badge mt-3">
+                Register
+            </h2>
+
+            <p class="soft-text mt-3">
+                Buat akun baru untuk mulai menggunakan
+                Smart City Issue Reporting Lampung.
+            </p>
+
+        </div>
+
+        <form method="POST" class="mt-4" id="registerForm">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button
+                type="submit"
+                class="btn btn-primary w-100"
+                id="registerBtn">
+
+                <i class="bi bi-person-check-fill"></i>
+                Register
+
+            </button>
+
+        </form>
+
     </div>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-
-        <div class="text-center mt-3">
-            <button class="btn btn-primary">Register</button>
-        </div>
-    </form>
-
     <div class="text-center mt-3">
-        <a href="{% url 'login' %}" class="btn-back">Kembali ke Login</a>
+
+        Sudah punya akun?
+
+        <a
+            href="{% url 'login' %}"
+            class="btn btn-warning btn-sm ms-2">
+
+            Login
+
+        </a>
+
     </div>
 
 </div>
+```
+
+</div>
+
+<script>
+
+document.getElementById("registerForm")
+.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const btn =
+    document.getElementById("registerBtn");
+
+    btn.innerHTML =
+    '<i class="bi bi-hourglass-split"></i> Loading...';
+
+    btn.disabled = true;
+
+    setTimeout(() => {
+        this.submit();
+    }, 1500);
+
+});
+
+</script>
 
 {% endblock %}

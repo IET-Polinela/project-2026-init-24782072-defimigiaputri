@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block breadcrumb %}
+
 <nav>
     Home > Reports > Detail Report
 </nav>
@@ -8,47 +9,184 @@
 
 {% block content %}
 
-<div class="container-box">
+<div class="row justify-content-center">
 
-    <div style="text-align:center;">
-        <h2 class="title-badge">Detail Laporan</h2>
-    </div>
+```
+<div class="col-lg-8">
 
-    <hr>
+    <div class="card soft-card shine-card p-5">
 
-    <div style="text-align:left;">
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
 
-        <div style="display:flex; justify-content:space-between;">
-            <h3>{{ report.title }}</h3>
-            <div>
-                <a href="{% url 'update_report' report.id %}" class="btn btn-warning">Update</a>
-                <a href="{% url 'delete_report' report.id %}" class="btn btn-danger">Delete</a>
+            <h2 class="dashboard-title mb-2">
+                {{ report.title }}
+            </h2>
+
+            <div class="d-flex gap-2">
+
+                <a
+                    href="{% url 'update_report' report.id %}"
+                    class="btn btn-warning">
+
+                    <i class="bi bi-pencil-square"></i>
+                    Update
+
+                </a>
+
+                <a
+                    href="{% url 'delete_report' report.id %}"
+                    class="btn btn-danger">
+
+                    <i class="bi bi-trash"></i>
+                    Delete
+
+                </a>
+
             </div>
+
         </div>
 
-        <p><b>Category:</b> {{ report.category }}</p>
-        <p><b>Description:</b> {{ report.description }}</p>
-        <p><b>Location:</b> {{ report.location }}</p>
+        <hr>
 
-        <p><b>Status:</b>
-            {% if report.status == 'REPORTED' %}
-                <span class="badge-reported">Reported</span>
-            {% elif report.status == 'VERIFIED' %}
-                <span class="badge-verified">Verified</span>
-            {% elif report.status == 'IN_PROGRESS' %}
-                <span class="badge-progress">In Progress</span>
-            {% else %}
-                <span class="badge-resolved">Resolved</span>
-            {% endif %}
-        </p>
+        <div class="row g-4">
 
-        <p><b>Created at:</b> {{ report.created_at|date:"d M Y H:i" }}</p>
+            <div class="col-md-6">
+
+                <div class="card border-0 bg-light h-100">
+
+                    <div class="card-body">
+
+                        <h6 class="fw-bold">
+                            <i class="bi bi-tag-fill"></i>
+                            Kategori
+                        </h6>
+
+                        <p class="mb-0">
+                            {{ report.category }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="card border-0 bg-light h-100">
+
+                    <div class="card-body">
+
+                        <h6 class="fw-bold">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            Lokasi
+                        </h6>
+
+                        <p class="mb-0">
+                            {{ report.location }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="card border-0 bg-light h-100">
+
+                    <div class="card-body">
+
+                        <h6 class="fw-bold">
+                            <i class="bi bi-info-circle-fill"></i>
+                            Status
+                        </h6>
+
+                        {% if report.status == 'DRAFT' %}
+                            <span class="badge-draft">Draft</span>
+
+                        {% elif report.status == 'REPORTED' %}
+                            <span class="badge-reported">Reported</span>
+
+                        {% elif report.status == 'VERIFIED' %}
+                            <span class="badge-verified">Verified</span>
+
+                        {% elif report.status == 'IN_PROGRESS' %}
+                            <span class="badge-progress">In Progress</span>
+
+                        {% elif report.status == 'RESOLVED' %}
+                            <span class="badge-resolved">Resolved</span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="card border-0 bg-light h-100">
+
+                    <div class="card-body">
+
+                        <h6 class="fw-bold">
+                            <i class="bi bi-calendar-event-fill"></i>
+                            Dibuat
+                        </h6>
+
+                        <p class="mb-0">
+                            {{ report.created_at|date:"d M Y H:i" }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-12">
+
+                <div class="card border-0 bg-light">
+
+                    <div class="card-body">
+
+                        <h6 class="fw-bold">
+                            <i class="bi bi-card-text"></i>
+                            Deskripsi
+                        </h6>
+
+                        <p class="mb-0">
+                            {{ report.description }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="text-center mt-4">
+
+            <a
+                href="{% url 'report_list' %}"
+                class="btn btn-primary">
+
+                <i class="bi bi-arrow-left"></i>
+                Kembali
+
+            </a>
+
+        </div>
 
     </div>
 
-    <div class="text-center mt-3">
-        <a href="{% url 'report_list' %}" class="btn-custom">Kembali</a>
-    </div>
+</div>
+```
 
 </div>
 

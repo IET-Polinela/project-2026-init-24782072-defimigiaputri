@@ -139,8 +139,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 AUTH_USER_MODEL = 'usermanagement_24782072.User'
 
-LOGIN_REDIRECT_URL = 'report_list'
-LOGIN_REDIRECT_URL = '/reports/'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'login'
 
 REST_FRAMEWORK = {
 

@@ -1282,3 +1282,34 @@ function renderMyReportsPagination() {
     `;
 
 }
+
+document
+.querySelectorAll(".counter")
+.forEach(counter => {
+
+    let target =
+        Number(counter.dataset.target);
+
+    let count = 0;
+
+    function update(){
+
+        count += Math.ceil(target / 80);
+
+        if(count >= target){
+
+            counter.innerText =
+                target + "+";
+
+            return;
+        }
+
+        counter.innerText = count;
+
+        requestAnimationFrame(update);
+
+    }
+
+    update();
+
+});

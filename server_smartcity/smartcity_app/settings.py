@@ -172,3 +172,25 @@ CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = [
     "http://103.151.63.87:8006",
 ]
+
+SPECTACULAR_SETTINGS = {
+
+    'TITLE': 'Smart City Issue Reporting Lampung API',
+
+    'DESCRIPTION':
+        'Dokumentasi REST API resmi Smart City Issue Reporting Lampung yang '
+        'digunakan untuk mendukung proses pelaporan, pemantauan, dan '
+        'pengelolaan laporan masyarakat secara digital. API ini menyediakan '
+        'fitur autentikasi JWT, registrasi pengguna, manajemen laporan, '
+        'workflow status laporan (Draft, Reported, Verified, In Progress, '
+        'Resolved), dashboard statistik, serta layanan integrasi bagi '
+        'aplikasi frontend Smart City Citizen Portal. Dokumentasi ini '
+        'disusun berdasarkan standar OpenAPI 3.0 untuk memudahkan proses '
+        'pengembangan, pengujian, dan integrasi antara tim Backend dan '
+        'Frontend.',
+
+    'VERSION': '1.0.0',
+
+    'SERVE_INCLUDE_SCHEMA': False,
+
+}

@@ -3,6 +3,8 @@ from rest_framework import (
     permissions
 )
 
+from drf_spectacular.utils import extend_schema
+
 from django.db.models import Q
 
 from .models import Report
@@ -118,6 +120,19 @@ class ReportViewSet(
             permissions.IsAuthenticated()
 
         ]
+    
+    @extend_schema(exclude=True)
+    def destroy(
+        self,
+        request,
+        *args,
+        **kwargs
+    ):
+        return super().destroy(
+            request,
+            *args,
+            **kwargs
+        )
 
     def perform_create(
         self,

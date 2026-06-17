@@ -17,18 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularSwaggerView,
+)
+
+from django_scalar.views import scalar_viewer
+
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
 
-from django.urls import (
-    path,
-    include
-)
-
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('', include('main_app.urls')),
     path('about/', include('about.urls')),
     path('contacts/', include('contacts.urls')),
@@ -56,5 +59,25 @@ urlpatterns = [
     path(
         'api/',
         include('usermanagement_24782072.urls')
+    ),
+
+    path(
+        'api/schema/',
+        SpectacularAPIView.as_view(),
+        name='schema'
+    ),
+
+    path(
+        'api/docs/swagger/',
+        SpectacularSwaggerView.as_view(
+            url_name='schema'
+        ),
+        name='swagger-ui'
+    ),
+
+    path(
+        'api/docs/scalar/',
+        scalar_viewer,
+        name='scalar-ui'
     ),
 ]

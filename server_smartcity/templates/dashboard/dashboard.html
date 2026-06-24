@@ -8,6 +8,8 @@
 
 {% block content %}
 
+{% if is_dashboard_allowed %}
+
 <div class="hero-card">
 
     <i class="bi bi-speedometer2 feature-icon display-4"></i>
@@ -212,5 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 </script>
+
+{% endif %}
 
 {% endblock %}

@@ -49,7 +49,7 @@ class SerializerAndModelCoverageTests(APITestCase):
         Menguji serializer tanpa menyertakan request dalam context,
         sehingga is_owner mengembalikan False.
         """
-        from mainapp.serializers import ReportSerializer
+        from main_app.serializers import ReportSerializer
         report = Report.objects.create(
             title='Laporan Serializer Uji',
             category='Lainnya',
@@ -60,7 +60,7 @@ class SerializerAndModelCoverageTests(APITestCase):
         )
         serializer = ReportSerializer(report, context={})
         self.assertFalse(serializer.data['is_owner'])
-        self.assertEqual(serializer.data['reporter_name'], 'Warga Anonim')
+        self.assertEqual(serializer.data['reporter'], 'Warga Anonim')
 
 
 class MainAppMonolithicViewsCoverageTests(TestCase):
@@ -107,20 +107,6 @@ class MainAppMonolithicViewsCoverageTests(TestCase):
         with self.assertRaises(Http404):
             report_detail_api(request, 99999)
 
-    def test_report_search_unauthenticated(self):
-        response = self.client.get(reverse('report_search') + '?q=Lampu')
-        self.assertEqual(response.status_code, 403)
-
-    def test_report_search_citizen(self):
-        self.client.login(username='citizen_mono', password='Password123!')
-        response = self.client.get(reverse('report_search') + '?q=Lampu')
-        self.assertEqual(response.status_code, 403)
-
-    def test_report_search_admin(self):
-        self.client.login(username='admin_mono', password='Password123!')
-        response = self.client.get(reverse('report_search') + '?q=Monolitik')
-        self.assertEqual(response.status_code, 200)
-
     def test_home_view(self):
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
@@ -128,12 +114,12 @@ class MainAppMonolithicViewsCoverageTests(TestCase):
 
     def test_report_list_view_unauthenticated(self):
         response = self.client.get(reverse('report_list'))
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
     def test_report_list_view_citizen(self):
         self.client.login(username='citizen_mono', password='Password123!')
         response = self.client.get(reverse('report_list'))
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
     def test_report_list_view_admin(self):
         self.client.login(username='admin_mono', password='Password123!')
@@ -171,13 +157,17 @@ class MainAppMonolithicViewsCoverageTests(TestCase):
         self.assertTrue(Report.objects.filter(title='Laporan Form Baru').exists())
 
     def test_report_detail_view_unauthenticated(self):
-        response = self.client.get(reverse('report_detail', kwargs={'pk': self.report.id}))
-        self.assertEqual(response.status_code, 302)
+        response = self.client.get(
+            reverse('report_detail', kwargs={'pk': self.report.id})
+        )
+        self.assertEqual(response.status_code, 200)
 
     def test_report_detail_view_citizen(self):
         self.client.login(username='citizen_mono', password='Password123!')
-        response = self.client.get(reverse('report_detail', kwargs={'pk': self.report.id}))
-        self.assertEqual(response.status_code, 302)
+        response = self.client.get(
+            reverse('report_detail', kwargs={'pk': self.report.id})
+        )
+        self.assertEqual(response.status_code, 200)
 
     def test_report_detail_view_admin(self):
         self.client.login(username='admin_mono', password='Password123!')

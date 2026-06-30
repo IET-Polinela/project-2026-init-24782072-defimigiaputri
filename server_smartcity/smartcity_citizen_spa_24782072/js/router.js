@@ -916,7 +916,7 @@ const routes = {
         <div class="card border-0 p-3 shadow-sm soft-card mb-3">
 
             <button
-                id="btnNewReport"
+                id="btnBukaModal"
                 class="btn btn-pink w-100"
                 data-bs-toggle="modal"
                 data-bs-target="#reportModal">
@@ -928,34 +928,174 @@ const routes = {
 
         </div>
 
-             <div
-                class="card border-0 p-3 shadow-sm soft-card mt-3">
+            <div
+                id="summaryStats"
+                class="card border-0 p-4 shadow-sm soft-card mt-3">
 
-                <div class="status-simple">
+                <div class="text-center mb-3">
 
-                    <p>
-                        Draft : <span id="totalDraft">0</span>
-                    </p>
-
-                    <p>
-                        Reported : <span id="totalReported">0</span>
-                    </p>
-
-                    <p>
-                        Verified : <span id="totalVerified">0</span>
-                    </p>
-
-                    <p>
-                        In Progress : <span id="totalProgress">0</span>
-                    </p>
-
-                    <p>
-                        Resolved : <span id="totalResolved">0</span>
-                    </p>
+                    <h5 class="dashboard-title mb-0">
+                        <i class="bi bi-clipboard-data-fill me-2"></i>
+                        Status Laporan
+                    </h5>
 
                 </div>
 
-            </div>
+                <hr class="mt-2 mb-3">
+
+                <div class="status-simple">
+
+                    <div class="status-progress">
+
+                        <div class="status-title">
+
+                            <strong>
+                                Draft
+                                (
+                                <span
+                                    id="totalDraft"
+                                    class="badge bg-secondary badge-draft-status">
+                                    0
+                                </span>
+                                )
+                            </strong>
+
+                            <span>20%</span>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar progress-draft"
+                                style="width:20%">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="status-progress">
+
+                        <div class="status-title">
+
+                            <strong>
+                                Reported
+                                (
+                                <span
+                                    id="totalReported"
+                                    class="badge bg-secondary badge-reported-status">
+                                    0
+                                </span>
+                                )
+                            </strong>
+
+                            <span>40%</span>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar progress-reported"
+                                style="width:40%">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="status-progress">
+
+                        <div class="status-title">
+
+                            <strong>
+                                Verified
+                                (
+                                <span
+                                    id="totalVerified"
+                                    class="badge bg-secondary badge-verified-status">
+                                    0
+                                </span>
+                                )
+                            </strong>
+
+                            <span>60%</span>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar progress-verified"
+                                style="width:60%">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="status-progress">
+
+                        <div class="status-title">
+
+                            <strong>
+                                In Progress
+                                (
+                                <span
+                                    id="totalProgress"
+                                    class="badge bg-secondary badge-progress-status">
+                                    0
+                                </span>
+                                )
+                            </strong>
+
+                            <span>80%</span>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar progress-progress"
+                                style="width:80%">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="status-progress">
+
+                        <div class="status-title">
+
+                            <strong>
+                                Resolved
+                                (
+                                <span
+                                    id="totalResolved"
+                                    class="badge bg-secondary badge-resolved-status">
+                                    0
+                                </span>
+                                )
+                            </strong>
+
+                            <span>100%</span>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar progress-resolved"
+                                style="width:100%">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
         </aside>
 
@@ -1100,11 +1240,16 @@ const routes = {
 
     </section>
 
-    `
+    </div>
+
+`,
+
 };
 
 
 function handleRouting() {
+
+    console.log("HASH =", window.location.hash);
 
     const hash =
         window.location.hash ||
@@ -1128,6 +1273,27 @@ function handleRouting() {
 
     if (hash === '#dashboard') {
 
+        console.log("MASUK DASHBOARD");
+
+        const token =
+            localStorage.getItem(
+                'access_token'
+            );
+        
+        console.log('HASH =', hash);
+        console.log('TOKEN =', token);
+        console.log('LOCALSTORAGE =', localStorage);
+
+        if (!token) {
+
+            console.log("TOKEN KOSONG -> LOGIN");
+
+            window.location.hash =
+                '#login';
+
+            return;
+        }
+
         loadMyReports();
 
         loadFeedReports();
@@ -1145,6 +1311,8 @@ function handleRouting() {
             document.getElementById(
                 'welcomeUser'
             );
+
+        setupReportForm();
 
         if (
             welcomeUser &&

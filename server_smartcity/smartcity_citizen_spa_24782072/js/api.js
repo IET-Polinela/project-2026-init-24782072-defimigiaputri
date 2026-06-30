@@ -1,7 +1,5 @@
 const BASE_URL =
-    'http://103.151.63.87:8006';
-    'http://127.0.0.1:5500';
-
+    'http://103.151.63.87:8006';  
 
 async function requestAPI(
     endpoint,
@@ -51,5 +49,21 @@ async function requestAPI(
             config
         );
 
+    console.log('Endpoint:', endpoint);
+    console.log('Status:', response.status);   
+
+    if (
+        response.status === 401
+    ) {
+
+        console.log('401 dari endpoint:', endpoint);
+
+        localStorage.clear();
+
+        window.location.hash =
+            '#login';
+    }
+
     return response;
+
 }

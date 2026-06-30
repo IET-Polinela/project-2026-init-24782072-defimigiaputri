@@ -619,22 +619,22 @@ async function editDraft(id) {
             await response.json();
 
         document.getElementById(
-            'reportTitle'
+            'inputTitle'
         ).value =
             report.title;
 
         document.getElementById(
-            'reportCategory'
+            'inputCategory'
         ).value =
             report.category;
 
         document.getElementById(
-            'reportLocation'
+            'inputLocation'
         ).value =
             report.location;
 
         document.getElementById(
-            'reportDescription'
+            'inputDescription'
         ).value =
             report.description;
 
@@ -703,22 +703,22 @@ async function submitReport() {
 
         title:
             document.getElementById(
-                'reportTitle'
+                'inputTitle'
             ).value,
 
         category:
             document.getElementById(
-                'reportCategory'
+                'inputCategory'
             ).value,
 
         location:
             document.getElementById(
-                'reportLocation'
+                'inputLocation'
             ).value,
 
         description:
             document.getElementById(
-                'reportDescription'
+                'inputDescription'
             ).value
 
     };
@@ -1167,22 +1167,22 @@ async function saveDraft() {
 
         title:
             document.getElementById(
-                'reportTitle'
+                'inputTitle'
             ).value,
 
         category:
             document.getElementById(
-                'reportCategory'
+                'inputCategory'
             ).value,
 
         location:
             document.getElementById(
-                'reportLocation'
+                'inputLocation'
             ).value,
 
         description:
             document.getElementById(
-                'reportDescription'
+                'inputDescription'
             ).value,
 
         status: 'DRAFT'
@@ -1218,6 +1218,28 @@ async function saveDraft() {
             response.status === 200
         )
     ) {
+
+        const modalElement =
+            document.getElementById(
+                'reportModal'
+            );
+
+        const modal =
+            bootstrap.Modal.getInstance(
+                modalElement
+            );
+
+        if (modal) {
+            modal.hide();
+        }
+
+        alert(
+            'Laporan berhasil disimpan sebagai DRAFT'
+        );
+
+        document.getElementById(
+            'reportForm'
+        ).reset();
 
         editingReportId = null;
 
@@ -1280,6 +1302,48 @@ function renderMyReportsPagination() {
         </button>
 
     `;
+
+}
+
+function setupReportForm() {
+
+    const btnDraft = document.getElementById('btnDraft');
+    const btnSubmit = document.getElementById('btnSubmit');
+
+    if (btnDraft) {
+
+        btnDraft.onclick = async function () {
+
+            await saveDraft();
+
+            const modal =
+                bootstrap.Modal.getInstance(
+                    document.getElementById('reportModal')
+                );
+
+            if (modal) {
+                modal.hide();
+            }
+
+            alert('Laporan berhasil disimpan sebagai DRAFT');
+
+            document.getElementById('reportForm').reset();
+
+        };
+
+    }
+
+    if (btnSubmit) {
+
+        btnSubmit.onclick = async function () {
+
+            await submitReport();
+
+            alert('Laporan berhasil dikirim.');
+
+        };
+
+    }
 
 }
 

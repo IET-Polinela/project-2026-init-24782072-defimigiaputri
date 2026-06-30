@@ -4,7 +4,8 @@ from .views import (
     ReportListView, ReportDetailView,
     ReportCreateView, ReportUpdateView,
     ReportDeleteView, ReportUpdateStatusView,
-    report_detail_api
+    report_detail_api,
+    search_reports,
 )
 
 urlpatterns = [
@@ -19,4 +20,10 @@ urlpatterns = [
     path('update-status/<int:pk>/', ReportUpdateStatusView.as_view(), name='update_status'),
 
     path('report/<int:pk>/api/', report_detail_api, name='report_detail_api'),
+
+    path(
+    "search/",
+    search_reports,
+    name="search_reports"
+),
 ]

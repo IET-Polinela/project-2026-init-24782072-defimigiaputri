@@ -46,7 +46,7 @@
         </tr>
     </thead>
 
-    <tbody id="reportTable">
+    <tbody id="reportTableBody">
     {% for report in reports %}
         <tr class="report-row">
             <td class="title-cell report-title">{{ report.title }}</td>
@@ -157,63 +157,126 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
-    const searchInput = document.getElementById("searchInput");
-    const rows = document.querySelectorAll(".report-row");
+    const searchInput =
+        document.getElementById("searchInput");
 
-    function highlight(text, keyword) {
-        if (!keyword) return text;
-        const regex = new RegExp(`(${keyword})`, "gi");
-        return text.replace(regex, `<span class="highlight">$1</span>`);
-    }
+    const modalContent =
+        document.getElementById("modalContent");
 
-    searchInput.addEventListener("keyup", function() {
-        const keyword = this.value.toLowerCase();
+    searchInput.addEventListener("keyup", function () {
 
-        rows.forEach(row => {
-            const titleCell = row.querySelector(".title-cell");
-            const locationCell = row.querySelector(".location-cell");
+        fetch(`/search/?q=${this.value}`)
 
-            const originalTitle = titleCell.textContent;
-            const originalLocation = locationCell.textContent;
+        .then(res => res.json())
 
-            const match = (originalTitle + originalLocation).toLowerCase().includes(keyword);
+        .then(data => {
 
-            row.style.display = match ? "" : "none";
+            const tbody =
+                document.getElementById("reportTableBody");
 
-            if (match && keyword) {
-                titleCell.innerHTML = highlight(originalTitle, keyword);
-                locationCell.innerHTML = highlight(originalLocation, keyword);
-            } else {
-                titleCell.innerHTML = originalTitle;
-                locationCell.innerHTML = originalLocation;
-            }
-        });
-    });
+            tbody.innerHTML = "";
 
-    const buttons = document.querySelectorAll(".detail-btn");
-    const modalContent = document.getElementById("modalContent");
+            data.results.forEach(report => {
 
-    buttons.forEach(btn => {
-        btn.addEventListener("click", function() {
-            const id = this.getAttribute("data-id");
+                tbody.innerHTML += `
+                    <tr>
 
-            fetch(`/report/${id}/api/`)
-            .then(res => res.json())
-            .then(data => {
-                modalContent.innerHTML = `
-                    <p><b>Judul:</b> ${data.title}</p>
-                    <p><b>Deskripsi:</b> ${data.description}</p>
-                    <p><b>Lokasi:</b> ${data.location}</p>
-                    <p><b>Status:</b> <span class="badge-modal">${data.status}</span></p>
+                        <td class="title-cell report-title">
+                            ${report.title}
+                        </td>
+
+                        <td class="location-cell">
+                            ${report.location}
+                        </td>
+
+                        <td>
+                            ${report.status}
+                        </td>
+
+                        <td>
+                            <button
+                                class="btn btn-primary btn-sm detail-btn"
+                                data-id="${report.id}">
+                                Detail
+                            </button>
+                        </td>
+
+                    </tr>
                 `;
+
             });
 
-            const modal = new bootstrap.Modal(document.getElementById('detailModal'));
-            modal.show();
+            document
+                .querySelectorAll(".detail-btn")
+                .forEach(btn => {
+
+                    btn.addEventListener("click", function () {
+
+                        const id =
+                            this.getAttribute("data-id");
+
+                        fetch(`/report/${id}/api/`)
+                        .then(res => res.json())
+                        .then(data => {
+
+                            modalContent.innerHTML = `
+                                <p><b>Judul:</b> ${data.title}</p>
+                                <p><b>Deskripsi:</b> ${data.description}</p>
+                                <p><b>Lokasi:</b> ${data.location}</p>
+                                <p><b>Status:</b> ${data.status}</p>
+                            `;
+
+                        });
+
+                        const modal =
+                            new bootstrap.Modal(
+                                document.getElementById("detailModal")
+                            );
+
+                        modal.show();
+
+                    });
+
+                });
+
         });
+
     });
+
+    document
+        .querySelectorAll(".detail-btn")
+        .forEach(btn => {
+
+            btn.addEventListener("click", function () {
+
+                const id =
+                    this.getAttribute("data-id");
+
+                fetch(`/report/${id}/api/`)
+                .then(res => res.json())
+                .then(data => {
+
+                    modalContent.innerHTML = `
+                        <p><b>Judul:</b> ${data.title}</p>
+                        <p><b>Deskripsi:</b> ${data.description}</p>
+                        <p><b>Lokasi:</b> ${data.location}</p>
+                        <p><b>Status:</b> ${data.status}</p>
+                    `;
+
+                });
+
+                const modal =
+                    new bootstrap.Modal(
+                        document.getElementById("detailModal")
+                    );
+
+                modal.show();
+
+            });
+
+        });
 
 });
 </script>

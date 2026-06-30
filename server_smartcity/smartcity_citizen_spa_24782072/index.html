@@ -301,6 +301,108 @@
             font-weight: bold;
         }
 
+        .status-item{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin:18px 0;
+        }
+
+        .status-item small{
+            color:#b06a84;
+            font-weight:600;
+            width:45px;
+            text-align:right;
+        }
+
+        .badge-draft-status{
+            background:#d9d4d4;
+            color:#5d4a4a;
+        }
+
+        .badge-reported-status{
+            background:#e8c9c1;
+            color:#c86c8b;
+        }
+
+        .badge-verified-status{
+            background:#e7b6aa;
+            color:#ffffff;
+        }
+
+        .badge-progress-status{
+            background:#efcbbf;
+            color:#7b4b46;
+        }
+
+        .badge-resolved-status{
+            background:#df9bb0;
+            color:#ffffff;
+        }
+
+        .badge-draft-status,
+        .badge-reported-status,
+        .badge-verified-status,
+        .badge-progress-status,
+        .badge-resolved-status{
+            padding:0;
+            background:transparent !important;
+            border:none;
+            border-radius:0;
+            font-size:inherit;
+            font-weight:700;
+            color:inherit;
+        }
+
+        .status-progress{
+            margin-bottom:14px;
+        }
+
+        .status-title{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:5px;
+        }
+
+        .status-title strong{
+            color:#5b4040;
+            font-size:16px;
+            font-weight:700;
+        }
+
+        .status-title span{
+            color:#bf6f8b;
+            font-weight:700;
+        }
+
+        .progress{
+            height:7px;
+            background:#ececec;
+            border-radius:999px;
+            overflow:hidden;
+        }
+
+        .progress-draft{
+            background:#d9d4d4;
+        }
+
+        .progress-reported{
+            background:#e8c9c1;
+        }
+
+        .progress-verified{
+            background:#e7b6aa;
+        }
+
+        .progress-progress{
+            background:#efcbbf;
+        }
+
+        .progress-resolved{
+            background:#df9bb0;
+        }
+
         .hero-section{
             padding:80px 20px;
             text-align:center;
@@ -644,9 +746,15 @@
             <hr>
 
             <div class="text-center mt-4">
-                <button class="btn btn-pink me-2">
+                <button
+                    id="btnBukaModal"
+                    class="btn btn-pink me-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#reportModal">
+
                     <i class="bi bi-plus-circle-fill"></i>
                     Tambah Laporan
+
                 </button>
 
                 <button class="btn btn-soft">
@@ -708,7 +816,7 @@
 
                         <input
                             type="text"
-                            id="reportTitle"
+                            id="inputTitle"
                             class="form-control"
                             placeholder="Masukkan judul laporan">
 
@@ -723,7 +831,7 @@
                         </label>
 
                         <select
-                            id="reportCategory"
+                            id="inputCategory"
                             class="form-select">
 
                             <option value="">
@@ -772,7 +880,7 @@
 
                         <input
                             type="text"
-                            id="reportLocation"
+                            id="inputLocation"
                             class="form-control"
                             placeholder="Masukkan lokasi">
 
@@ -787,7 +895,7 @@
                         </label>
 
                         <textarea
-                            id="reportDescription"
+                            id="inputDescription"
                             class="form-control"
                             rows="4"
                             placeholder="Jelaskan masalah yang ingin dilaporkan"></textarea>

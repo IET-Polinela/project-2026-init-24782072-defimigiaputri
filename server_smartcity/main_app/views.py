@@ -168,3 +168,30 @@ def report_detail_api(request, pk):
     }
 
     return JsonResponse(data)
+
+def search_reports(request):
+
+    keyword = request.GET.get("q", "")
+
+    reports = (
+        Report.objects.filter(
+            Q(title__icontains=keyword) |
+            Q(location__icontains=keyword)
+        )
+        .order_by("-created_at")
+    )
+
+    results = []
+
+    for report in reports:
+
+        results.append({
+            "id": report.id,
+            "title": report.title,
+            "location": report.location,
+            "status": report.status,
+        })
+
+    return JsonResponse({
+        "results": results
+    })

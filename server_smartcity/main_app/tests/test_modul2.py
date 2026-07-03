@@ -157,7 +157,7 @@ class PrivacyAndDataHidingTests(APITestCase):
         # Verifikasi: reporter_name untuk laporan sendiri BUKAN "Warga Anonim"
         for laporan in results:
             self.assertEqual(
-                laporan['reporter'],
+                laporan['reporter_name'],
                 'Warga Anonim'
             )
 

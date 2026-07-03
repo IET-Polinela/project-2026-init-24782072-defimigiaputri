@@ -142,3 +142,10 @@ class ReportViewSet(
         serializer.save(
             reporter=self.request.user
         )
+
+    def perform_update(
+        self,
+        serializer
+    ):
+
+        serializer.save()

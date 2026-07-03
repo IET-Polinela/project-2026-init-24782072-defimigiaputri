@@ -21,9 +21,9 @@ urlpatterns = [
 
     path('report/<int:pk>/api/', report_detail_api, name='report_detail_api'),
 
-    path(
+path(
     "search/",
     search_reports,
-    name="search_reports"
+    name="report_search"
 ),
 ]

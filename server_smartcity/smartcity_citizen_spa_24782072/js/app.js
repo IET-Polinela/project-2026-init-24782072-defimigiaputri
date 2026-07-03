@@ -719,9 +719,14 @@ async function submitReport() {
         description:
             document.getElementById(
                 'inputDescription'
-            ).value
+            ).value,
+
+        status: 'REPORTED'
 
     };
+
+    console.log("SUBMIT REPORT");
+    console.log(reportData);
 
     let response;
 
@@ -1230,24 +1235,34 @@ async function saveDraft() {
             );
 
         if (modal) {
+
+            modalElement.addEventListener(
+                'hidden.bs.modal',
+                function () {
+
+                    alert(
+                        'Laporan berhasil disimpan sebagai DRAFT'
+                    );
+
+                    document.getElementById(
+                        'reportForm'
+                    ).reset();
+
+                    editingReportId = null;
+
+                    loadMyReports();
+
+                    loadFeedReports();
+
+                    loadSummaryStats();
+
+                },
+                { once: true }
+            );
+
             modal.hide();
+
         }
-
-        alert(
-            'Laporan berhasil disimpan sebagai DRAFT'
-        );
-
-        document.getElementById(
-            'reportForm'
-        ).reset();
-
-        editingReportId = null;
-
-        loadMyReports();
-
-        loadFeedReports();
-
-        loadSummaryStats();
 
     }
 
@@ -1315,19 +1330,6 @@ function setupReportForm() {
         btnDraft.onclick = async function () {
 
             await saveDraft();
-
-            const modal =
-                bootstrap.Modal.getInstance(
-                    document.getElementById('reportModal')
-                );
-
-            if (modal) {
-                modal.hide();
-            }
-
-            alert('Laporan berhasil disimpan sebagai DRAFT');
-
-            document.getElementById('reportForm').reset();
 
         };
 

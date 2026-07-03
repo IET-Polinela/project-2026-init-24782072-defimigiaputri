@@ -10,6 +10,10 @@ from .forms import ReportForm
 from django.contrib import messages
 from django.http import JsonResponse
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseForbidden
+from django.core.exceptions import PermissionDenied
+
 
 # HOME
 def home(request):
@@ -29,7 +33,7 @@ def contacts(request):
 # DETAIL
 class ReportDetailView(DetailView):
     model = Report
-    template_name = 'main_app/report_detail.html'
+    template_name = "main_app/report_detail.html"
 
 
 # CREATE
@@ -39,15 +43,21 @@ class ReportCreateView(CreateView):
     template_name = 'main_app/add_report.html'
     success_url = reverse_lazy('report_list')
 
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        messages.success(self.request, "Data berhasil ditambahkan!")
-        return response
-    
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated or not request.user.is_admin:
-            messages.error(request, "Akses ditolak: Hanya administrator yang dapat menambahkan, memperbarui, atau menghapus laporan!!!")
-            return redirect('report_list')
+
+        if (
+            not request.user.is_authenticated
+            or
+            not request.user.is_admin
+        ):
+
+            messages.error(
+                request,
+                "Akses ditolak: Hanya administrator yang dapat menambahkan, memperbarui, atau menghapus laporan!!!"
+            )
+
+            return redirect("report_list")
+
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -55,39 +65,36 @@ class ReportCreateView(CreateView):
 class ReportListView(ListView):
 
     model = Report
-
-    template_name = 'main_app/report_list.html'
-
-    context_object_name = 'reports'
-
-    ordering = ['-created_at']
+    template_name = "main_app/report_list.html"
+    context_object_name = "reports"
+    ordering = ["-created_at"]
 
     def get_queryset(self):
 
         if self.request.user.is_authenticated:
 
             return (
-                Report.objects
-                .filter(
-                    Q(status__in=[
-                        'REPORTED',
-                        'VERIFIED',
-                        'IN_PROGRESS',
-                        'RESOLVED'
-                    ])
+                Report.objects.filter(
+                    Q(
+                        status__in=[
+                            "REPORTED",
+                            "VERIFIED",
+                            "IN_PROGRESS",
+                            "RESOLVED",
+                        ]
+                    )
                     |
                     Q(
                         reporter=self.request.user,
-                        status='DRAFT'
+                        status="DRAFT",
                     )
-                )
-                .order_by('-created_at')
+                ).order_by("-created_at")
             )
 
         return (
-            Report.objects
-            .exclude(status='DRAFT')
-            .order_by('-created_at')
+            Report.objects.exclude(
+                status="DRAFT"
+            ).order_by("-created_at")
         )
 
 
@@ -97,17 +104,18 @@ class ReportUpdateView(UpdateView):
     form_class = ReportForm
     template_name = 'main_app/update_report.html'
     success_url = reverse_lazy('report_list')
-
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        messages.success(self.request, "Data berhasil diperbarui!")
-        return response
     
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated or not request.user.is_admin:
-            messages.error(request, "Akses ditolak: Hanya administrator yang dapat menambahkan, memperbarui, atau menghapus laporan!!!")
-            return redirect('report_list')
-        return super().dispatch(request, *args, **kwargs)
+
+        if not request.user.is_authenticated:
+            return redirect("report_list")
+
+        if not request.user.is_admin:
+            return redirect("report_list")
+
+        return HttpResponseForbidden(
+            "Akses Ditolak: Administrator tidak diperbolehkan mengubah isi laporan."
+        )
 
 
 # DELETE
@@ -116,18 +124,26 @@ class ReportDeleteView(DeleteView):
     template_name = 'main_app/delete_report.html'
     success_url = reverse_lazy('report_list')
 
-    def post(self, request, *args, **kwargs):
-        obj = self.get_object()
-        obj.delete()
-        messages.success(request, "Data berhasil dihapus!")
-        return redirect('report_list')
-    
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated or not request.user.is_admin:
-            messages.error(request, "Akses ditolak: Hanya administrator yang dapat menambahkan, memperbarui, atau menghapus laporan!!!")
-            return redirect('report_list')
-        return super().dispatch(request, *args, **kwargs)
 
+        # Belum login -> redirect
+        if not request.user.is_authenticated:
+            return redirect("report_list")
+
+        # Citizen -> redirect
+        if not request.user.is_admin:
+            return redirect("report_list")
+
+        # Admin -> forbidden
+        return HttpResponseForbidden(
+            "Administrator tidak diperbolehkan menghapus laporan."
+        )
+
+    def delete(self, request, *args, **kwargs):
+        raise PermissionDenied(
+            "Administrator tidak diperbolehkan menghapus laporan."
+        )
+    
 
 # WORKFLOW STATUS
 class ReportUpdateStatusView(View):
@@ -170,6 +186,17 @@ def report_detail_api(request, pk):
     return JsonResponse(data)
 
 def search_reports(request):
+
+    if (
+        not request.user.is_authenticated
+        or
+        not request.user.is_admin
+    ):
+
+        return JsonResponse(
+            {"results": []},
+            status=403
+        )
 
     keyword = request.GET.get("q", "")
 
